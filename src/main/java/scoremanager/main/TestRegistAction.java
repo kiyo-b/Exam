@@ -9,7 +9,9 @@ import java.util.Map;
 import bean.School;
 import bean.Student;
 import dao.ClassNumDao;
+import dao.SchoolDao;
 import dao.StudentDao;
+import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -48,7 +50,7 @@ public class TestRegistAction extends Action {
 //		学校情報を取得するため
 		SchoolDao schoolDao = new SchoolDao();
 //		科目情報を取得するため
-		Subject 
+		SubjectDao subjectDao = new SubjectDao();
 //		学生情報を取得するため
 		StudentDao studentDao = new StudentDao();
 //		クラス情報を取得するため
