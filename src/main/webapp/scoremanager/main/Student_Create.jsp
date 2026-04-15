@@ -10,7 +10,7 @@
     
     <c:param name="scripts"></c:param>
 
-    <c:param name="content">
+	<c:param name="content">
         <section class="me-4">
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">学生情報登録</h2>
             <div class="my-2 text-end px-4">
@@ -34,4 +34,27 @@
             	<input type="text" class="form-control" id="student-f2-input" name="f2" value="${f2}">
             </div>
             
-                    
+            <div class="col-4">
+            	<label class="form-label" for="student-f3-input">氏名</label>
+            	<input type="text" class="form-control" id="student-f3-input" name="f3" value="${f3}">
+            </div>
+            
+            <div class="col-4">
+            	<label class="form-label" for="student-f2-select">クラス</label>
+            	<select class="form-select" id="student-f2-select" name="f2">
+            		<option value=""></option>
+            		<c:forEach var="num" items="${class_num_set}">
+            			<option value="${num}" <c:if test="${num==f2}">selected</c:if>>
+            				${num}
+            			</option>
+            		</c:forEach>
+            	</select>
+            </div>
+            
+            <div class="col-2 text-center">
+            	<button class="btn btn-secondary"id="filter-button">登録して終了</button>
+            </div>
+            
+            <a href="http://localhost:8080/team/StudentList.action">戻る</a>
+	</c:param>
+</c:import>
