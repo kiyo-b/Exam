@@ -40,11 +40,11 @@
             </div>
             
             <div class="col-4">
-            	<label class="form-label" for="student-f2-select">クラス</label>
-            	<select class="form-select" id="student-f2-select" name="f2">
+            	<label class="form-label" for="student-f4-select">クラス</label>
+            	<select class="form-select" id="student-f4-select" name="f4">
             		<option value=""></option>
             		<c:forEach var="num" items="${class_num_set}">
-            			<option value="${num}" <c:if test="${num==f2}">selected</c:if>>
+            			<option value="${num}" <c:if test="${num==f4}">selected</c:if>>
             				${num}
             			</option>
             		</c:forEach>
