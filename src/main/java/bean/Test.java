@@ -41,7 +41,7 @@ public class Test implements Serializable {
 		this.subject_cd = subject_cd;
 	}
 	
-	public String getschool_cd() {
+	public String getSchool_cd() {
 		return school_cd;
 	}
 
