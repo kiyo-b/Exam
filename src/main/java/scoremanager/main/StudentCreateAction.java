@@ -29,6 +29,12 @@ public class StudentCreateAction extends Action{
 		StudentDao studentDao = new StudentDao(); 
 		ClassNumDao classNumDao = new ClassNumDao(); 
 		Map<String, String> errors = new HashMap<>(); 
+		
+		entYearStr = req.getParameter("f1");
+		no = Integer.parseInt(req.getParameter("f2"));
+		name = req.getParameter("f3");
+		class_num = req.getParameter("f4");
+
 
 }
 }
