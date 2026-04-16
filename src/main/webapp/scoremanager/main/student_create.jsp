@@ -13,10 +13,6 @@
 	<c:param name="content">
         <section class="me-4">
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">学生情報登録</h2>
-            <div class="my-2 text-end px-4">
-                <a href="StudentCreate.action">ログアウト</a>
-            </div>
-            
             <div class="col-4">
                 <label class="form-label" for="student-f1-select">入学年度</label>
                 <select class="form-select" id="student-f1-select" name="f1">
@@ -55,6 +51,6 @@
             	<button class="btn btn-secondary"id="filter-button">登録して終了</button>
             </div>
             
-            <a href="http://localhost:8080/team/StudentList.action">戻る</a>
+<a href="/StudentList.action">戻る</a>
 	</c:param>
 </c:import>

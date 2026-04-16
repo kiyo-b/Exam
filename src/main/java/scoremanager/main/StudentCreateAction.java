@@ -1,7 +1,9 @@
 package scoremanager.main;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import bean.School;
@@ -34,6 +36,19 @@ public class StudentCreateAction extends Action{
 		no = Integer.parseInt(req.getParameter("f2"));
 		name = req.getParameter("f3");
 		class_num = req.getParameter("f4");
+		
+		List<Integer> entYearSet = new ArrayList<>();
+		for (int i = year - 10; i <= year; i++) { // 10年前から今年まで
+			entYearSet.add(i);
+		}
+		
+		req.setAttribute("f1", entYear);
+		req.setAttribute("f2", no);
+		req.setAttribute("f3", name);
+		req.setAttribute("f4", class_num);
+		req.setAttribute("ent_year_set", entYearSet);
+		// JSPへフォワード 7
+		req.getRequestDispatcher("student_create.jsp").forward(req, res);
 
 
 }
