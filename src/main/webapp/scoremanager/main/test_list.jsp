@@ -23,7 +23,7 @@
 			</div>
 
 			<%-- 検索・絞り込みフォーム --%>
-			<form method="get">
+			<form method="get" action="TestList.action">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					
 					<%-- 入学年度の選択プルダウン --%>
@@ -58,9 +58,23 @@
 						<select class="form-select" id="student-f3-select" name="f3">
 							<option value="0">--------</option>
 							<%-- Actionから渡された testcount_set（クラス一覧）をループで回す --%>
-							<c:forEach var="subject" items="${subject_set }">
+							<c:forEach var="sub" items="${subject_set }">
 								<%-- 検索後の再表示時、選択していたクラスを保持（selected）する --%>
-								<option value="${subject }" <c:if test="${subject == f3 }">selected</c:if>>${subject }</option>
+								<option value="${sub }" <c:if test="${sub == f3 }">selected</c:if>>${sub }</option>
+							</c:forEach>
+						</select>
+					</div>
+					
+					<%-- 回数の選択プルダウン --%>
+					<div class="col-4">
+					${testcount_set}
+						<label class="form-label" for="student-f4-select">回数</label>
+						<select class="form-select" id="student-f4-select" name="f4">
+							<option value="0">--------</option>
+							<%-- Actionから渡された testcount_set（クラス一覧）をループで回す --%>
+							<c:forEach var="count1" items="${testcount_set }">
+								<%-- 検索後の再表示時、選択していたクラスを保持（selected）する --%>
+								<option value="${count1 }" <c:if test="${count1 == f4 }">selected</c:if>>${count1 }</option>
 							</c:forEach>
 						</select>
 					</div>

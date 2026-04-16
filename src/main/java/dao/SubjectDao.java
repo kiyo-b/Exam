@@ -66,7 +66,7 @@ public class SubjectDao extends Dao {
 		return subject;
 	}
 
-//	☆クラス名をすべて抽出するフィルター
+//	☆科目名をすべて抽出するフィルター
 	public List<String> filter(School school) throws Exception {
 		// リストを初期化
 		List<String> list = new ArrayList<>();
@@ -87,7 +87,7 @@ public class SubjectDao extends Dao {
 			// リザルトセットを全件走査
 			while (rSet.next()) {
 				// リストにクラス番号を追加
-				list.add(rSet.getString("subject_num"));
+				list.add(rSet.getString("name"));
 			}
 		} catch (Exception e) {
 			throw e;

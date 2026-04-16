@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
-public class TestRegistAction extends Action {
+public class TestListAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -101,9 +101,12 @@ public class TestRegistAction extends Action {
 		// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
 		List<String> list = classNumDao.filter(school);
 		
-		List<Test> clist = testDao.filter(school);
+		List<Integer> countset = new ArrayList<>();
+		for (int i = 1; i<=2; i++) {
+			countset.add(i);
+		}
 		
-		List<Subject> slist = subjectDao.filter(school);
+		List<String> slist = subjectDao.filter(school);
 
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (entYear != 0 
@@ -132,10 +135,10 @@ public class TestRegistAction extends Action {
 		req.setAttribute("class_num_set", list);    // クラスの選択肢
 		req.setAttribute("ent_year_set", entYearSet); // 入学年度の選択肢
 		req.setAttribute("subject_set", slist); // 科目の選択肢
-		req.setAttribute("testcount_set", clist); // 回数の選択肢
+		req.setAttribute("testcount_set", countset); // 回数の選択肢
 
 		// JSPへフォワード 7
 		// 全てのデータを「student_list.jsp」というファイルに渡して、画面を表示させます
-		req.getRequestDispatcher("student_list.jsp").forward(req, res);
+		req.getRequestDispatcher("/scoremanager/main/test_list.jsp").forward(req, res);
 	}
 }
