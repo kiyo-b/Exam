@@ -28,7 +28,7 @@ public class TestListAction extends Action {
 		// 【代わりの処理】ログイン情報の代わりに、仮の学校情報を設定
 		// 本来はログインした先生の学校を使いますが、今回はテスト用に「oom」校として動かします
 		School school = new School();
-		school.setCd("tes"); // お使いのテストデータに合わせた学校コードを指定してください
+		school.setCd("oom"); // お使いのテストデータに合わせた学校コードを指定してください
 
 		// ローカル変数の指定 1
 		// 画面から送られてくる検索条件や、DBから取ってきたデータを入れるための「箱」を準備します
@@ -107,6 +107,7 @@ public class TestListAction extends Action {
 		}
 		
 		List<String> slist = subjectDao.filter(school);
+		System.out.println(slist);
 
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (entYear != 0 
@@ -115,7 +116,7 @@ public class TestListAction extends Action {
 				&& testcount !=0
 		) {
 			// 入学年度とクラス番号を指定（例：2023年の1組）
-			tests = testDao.filter(school, entYear, classNum, subject, testcount);
+			tests = testDao.filter(school, entYear, classNum, subject);
 
 		} else {
 			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします

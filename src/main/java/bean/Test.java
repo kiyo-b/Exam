@@ -8,6 +8,10 @@ public class Test implements Serializable {
 	 * 学校コード:String
 	 */
 	private String student_no;
+	
+	private int ent_year;
+	
+	private String student_name;
 
 	/**
 	 * 学校名:String
@@ -18,7 +22,9 @@ public class Test implements Serializable {
 	
 	private int no;
 	
-	private int point;
+	private int point1;
+	
+	private int point2;
 	
 	private String class_num;
 
@@ -31,6 +37,22 @@ public class Test implements Serializable {
 
 	public void setStudent_no(String student_no) {
 		this.student_no = student_no;
+	}
+	
+	public int getEntYear() {
+		return ent_year;
+	}
+
+	public void setEntYear(int ent_year) {
+		this.ent_year = ent_year;
+	}
+	
+	public String getStudent_Name() {
+		return student_name;
+	}
+
+	public void setStudent_Name(String student_name) {
+		this.student_name = student_name;
 	}
 
 	public String getSubject_cd() {
@@ -57,12 +79,20 @@ public class Test implements Serializable {
 		this.no = no;
 	}
 	
-	public int getPoint() {
-		return point;
+	public int getPoint1() {
+		return point1;
 	}
 
-	public void setPoint(int point) {
-		this.point = point;
+	public void setPoint1(int point1) {
+		this.point1 = point1;
+	}
+	
+	public int getPoint2() {
+		return point2;
+	}
+
+	public void setPoint2(int point2) {
+		this.point2 = point2;
 	}
 	
 	public String getClass_num() {

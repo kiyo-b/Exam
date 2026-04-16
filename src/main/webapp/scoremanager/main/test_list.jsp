@@ -65,19 +65,6 @@
 						</select>
 					</div>
 					
-					<%-- 回数の選択プルダウン --%>
-					<div class="col-4">
-					${testcount_set}
-						<label class="form-label" for="student-f4-select">回数</label>
-						<select class="form-select" id="student-f4-select" name="f4">
-							<option value="0">--------</option>
-							<%-- Actionから渡された testcount_set（クラス一覧）をループで回す --%>
-							<c:forEach var="count1" items="${testcount_set }">
-								<%-- 検索後の再表示時、選択していたクラスを保持（selected）する --%>
-								<option value="${count1 }" <c:if test="${count1 == f4 }">selected</c:if>>${count1 }</option>
-							</c:forEach>
-						</select>
-					</div>
 
 
 					<%-- 絞込み実行ボタン --%>
@@ -93,7 +80,7 @@
 			<%-- 学生リストの表示判定 --%>
 			<c:choose>
 				<%-- 1件以上見つかった場合 --%>
-				<c:when test="${test.size() > 0 }">
+				<c:when test="${tests.size() > 0 }">
 					<div>検索結果：${tests.size() }件</div>
 					<table class="table table-hover">
 						<tr>
@@ -106,19 +93,13 @@
 							<th></th>
 						</tr>
 						<%-- 学生リスト(students)を1つずつstudent変数に取り出して表示 --%>
-						<c:forEach var="student" items="${tests }">
+						<c:forEach var="test" items="${tests }">
 							<tr>
 								<td>${test.entYear }</td>
-								<td>${test.no }</td>
-								<td>${test.name }</td>
 								<td>${test.classNum }</td>
-								<td class="text-center">
-									<%-- 在学フラグ(isAttend)がtrueなら「◯」、falseなら「×」 --%>
-									<c:choose>
-										<c:when test="${student.isAttend() }">◯</c:when>
-										<c:otherwise>×</c:otherwise>
-									</c:choose>
-								</td>
+								<td>${test.studentNo }</td>
+								<td>${test.point }</td>
+
 								<%-- 学生番号(no)をパラメータとして渡し、編集画面へ遷移 --%>
 								<td><a href="StudentUpdate.action?no=${student.no }">変更</a></td>
 							</tr>
