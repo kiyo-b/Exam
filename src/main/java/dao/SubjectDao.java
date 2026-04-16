@@ -82,12 +82,9 @@ public class SubjectDao extends Dao {
 				// プリペアードステートメントにINSERT文をセット
 				statement = connection.prepareStatement("insert into subject(no, name, ent_year, class_num, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
 				// プリペアードステートメントに値をバインド
-				statement.setString(1, student.getNo());
-				statement.setString(2, student.getName());
-				statement.setInt(3, student.getEntYear());
-				statement.setString(4, student.getClassNum());
-				statement.setBoolean(5, student.isAttend());
-				statement.setString(6, student.getSchool().getCd());
+				statement.setString(1, subject.getSchool_cd());
+				statement.setString(2, subject.getCd());
+				statement.setInt(3, subject.getName());
 			} else {
 				// 学生が存在した場合
 				// プリペアードステートメントにUPDATE文をセット
