@@ -78,7 +78,7 @@ public class SubjectDao extends Dao {
 		try {
 			// プリペアードステートメントにSQL文をセット
 			statement = connection
-					.prepareStatement("select name from subject where school_cd=? order by name");
+					.prepareStatement("select name, cd from subject where school_cd=? order by name");
 			// プリペアードステートメントに学校コードをバインド
 			statement.setString(1, school.getCd());
 			// プリペアードステートメントを実行
@@ -88,6 +88,7 @@ public class SubjectDao extends Dao {
 			while (rSet.next()) {
 				// リストにクラス番号を追加
 				list.add(rSet.getString("name"));
+				list.add(rSet.getString("cd"));
 			}
 		} catch (Exception e) {
 			throw e;

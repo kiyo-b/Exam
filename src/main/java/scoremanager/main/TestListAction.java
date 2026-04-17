@@ -69,23 +69,20 @@ public class TestListAction extends Action {
 		
 
 		// リクエストパラメーターの取得 2
-		// 画面の入力フォーム（f1=入学年度, f2=クラス, f3=科目, f4=回数）に書かれた値を受け取ります
+		// 画面の入力フォーム（f1=入学年度, f2=クラス, f3=科目）に書かれた値を受け取ります
 //		入学年度
 		entYearStr = req.getParameter("f1");
 //		クラス
 		classNum = req.getParameter("f2");
 //		科目
 		subject = req.getParameter("f3");
-//		回数
-		countStr = req.getParameter("f4");		
+	
 		// ビジネスロジック 4
 		// 受け取った値を「プログラムで計算・判定しやすい形」に整えます
 		if (entYearStr != null && !entYearStr.isEmpty()) { // 空文字チェックを追加
 			entYear = Integer.parseInt(entYearStr); // 文字列を数字に変換
 		}
-		if (countStr !=null && !countStr.isEmpty()) {// 空文字チェックを追加
-			testcount = Integer.parseInt(countStr); //文字列を数字に変換 
-		}
+
 		
 //	☆入学年度を表示するために必要（変更なし）
 		// 画面のプルダウン（入学年度の選択肢）を作るために、今年から10年前までの数字をリストにします
@@ -113,7 +110,6 @@ public class TestListAction extends Action {
 		if (entYear != 0 
 				&& classNum != null && !classNum.equals("0") 
 				&& subject != null && !subject.equals("0")
-				&& testcount !=0
 		) {
 			// 入学年度とクラス番号を指定（例：2023年の1組）
 			tests = testDao.filter(school, entYear, classNum, subject);

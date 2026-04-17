@@ -60,7 +60,7 @@
 							<%-- Actionから渡された testcount_set（クラス一覧）をループで回す --%>
 							<c:forEach var="sub" items="${subject_set }">
 								<%-- 検索後の再表示時、選択していたクラスを保持（selected）する --%>
-								<option value="${sub }" <c:if test="${sub == f3 }">selected</c:if>>${sub }</option>
+								<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -97,11 +97,13 @@
 							<tr>
 								<td>${test.entYear }</td>
 								<td>${test.classNum }</td>
-								<td>${test.studentNo }</td>
-								<td>${test.point }</td>
+								<td>${test.student_No }</td>
+								<td>${test.student_Name }</td>
+								<td>${test.point1 }</td>
+								<td>${test.point2 }</td>
 
 								<%-- 学生番号(no)をパラメータとして渡し、編集画面へ遷移 --%>
-								<td><a href="StudentUpdate.action?no=${student.no }">変更</a></td>
+								<td><a href="StudentUpdate.action?no=${test.studentNo }">変更</a></td>
 							</tr>
 						</c:forEach>
 					</table>
