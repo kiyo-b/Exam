@@ -3,7 +3,6 @@ package bean;
 import java.io.Serializable;
 
 public class Subject implements Serializable {
-	private String school_cd;
 
 	/**
 	 * 科目コード：String
@@ -14,21 +13,18 @@ public class Subject implements Serializable {
 	 * 科目名：String
 	 */
 	private String name;
+	
+	/**
+	 * 学校：school
+	 */
+	private School school;
+
 
 
 
 	/**
 	 * ゲッタ・セッタ
 	 */
-	public String getSchool_cd() {
-		return school_cd;
-	}
-
-	public void setSchool_cd(String shool_cd) {
-		this.school_cd = school_cd;
-	}
-	
-	
 	public String getCd() {
 		return cd;
 	}
@@ -43,6 +39,14 @@ public class Subject implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
 	}
 	
 }
