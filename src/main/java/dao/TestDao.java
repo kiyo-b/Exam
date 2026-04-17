@@ -26,8 +26,8 @@ public class TestDao extends Dao {
 				test.setEntYear(resultSet.getInt("ent_year"));
 				test.setStudent_Name(resultSet.getString("student_name"));
 				test.setStudent_no(resultSet.getString("student_no"));
-//				test.setSubject_cd(resultSet.getString("subject_cd"));
-//				test.setSchool_cd(resultSet.getString("school_cd"));
+				test.setSubject_cd(resultSet.getString("subject_cd"));
+				test.setSchool_cd(resultSet.getString("school_cd"));
 				test.setPoint1((Integer) resultSet.getObject("point1"));
 				test.setPoint2((Integer) resultSet.getObject("point2"));
 				test.setClass_num(resultSet.getString("class_num"));
