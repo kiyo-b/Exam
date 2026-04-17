@@ -3,6 +3,7 @@ package bean;
 import java.io.Serializable;
 
 public class Subject implements Serializable {
+	private String school_cd;
 
 	/**
 	 * 科目コード：String
@@ -19,6 +20,15 @@ public class Subject implements Serializable {
 	/**
 	 * ゲッタ・セッタ
 	 */
+	public String getSchool_cd() {
+		return school_cd;
+	}
+
+	public void setSchool_cd(String shool_cd) {
+		this.school_cd = school_cd;
+	}
+	
+	
 	public String getCd() {
 		return cd;
 	}
