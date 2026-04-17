@@ -23,11 +23,13 @@ public class TestDao extends Dao {
 				// 学生インスタンスを初期化
 				Test test = new Test();
 				// 学生インスタンスに検索結果をセット
+				test.setEntYear(resultSet.getInt("ent_year"));
+				test.setStudent_Name(resultSet.getString("student_name"));
 				test.setStudent_no(resultSet.getString("student_no"));
 				test.setSubject_cd(resultSet.getString("subject_cd"));
 				test.setSchool_cd(resultSet.getString("school_cd"));
-				test.setNo(resultSet.getInt("no"));
-				test.setPoint(resultSet.getInt("point"));
+				test.setPoint1((Integer) resultSet.getObject("point1"));
+				test.setPoint2((Integer) resultSet.getObject("point2"));
 				test.setClass_num(resultSet.getString("class_num"));
 
 				// リストに追加
@@ -41,7 +43,7 @@ public class TestDao extends Dao {
 	}
 
 //	☆入学年度、クラス、科目、回数を引数としてDBから検索するフィルター
-	public List<Test> filter(School school, Integer entYear, String classNum, String subject, Integer testcount ) throws Exception {
+	public List<Test> filter(School school, Integer entYear, String classNum, String subject ) throws Exception {
 		
 		// リストを初期化
 		List<Test> list = new ArrayList<>();
@@ -51,22 +53,33 @@ public class TestDao extends Dao {
 		PreparedStatement statement = null;
 		// リザルトセット
 		ResultSet resultSet = null;
-		// SQL文の条件
-		String condition = "and ent_year = ? and class_num = ? and subject = ? and testcount = ? ";
-		// SQL文のソート
-		String order = " order by ent_year asc";
 
 
 		try {
 			// プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement(baseSql + condition + order);
-			statement.setString(1, school.getCd());
-			// プリペアードステートメントに入学年度をバインド
-			statement.setInt(2, entYear);
-			// プリペアードステートメントにクラス番号をバインド
-			statement.setString(3, classNum);
-			statement.setString(4, subject);
-            statement.setInt(5, testcount);
+			statement = connection.prepareStatement(
+					"select ent_year, s.class_num, s.no as student_no, "
+					+ "s.name as student_name ,"
+					+ "max(case when t.no = 1 and t.subject_cd = ? then t.point end) as point1,"
+					+ "max(case when t.no = 2 and t.subject_cd = ? then t.point end) as point2 "
+					+ "from student s left join test t "
+					+ "on s.no = t.student_no and s.school_cd = t.school_cd "
+					+ "where s.school_cd = ? and s.ent_year = ?"
+					+ "and s.class_num = ? "
+					+ "group by s.ent_year, s.class_num, s.no, s.name"
+					+ "having\n"
+					+ "max(case when t.no = 1 and t.subject_cd = ? then t.point end) is not null "
+					+ "or "
+					+ "max(case when t.no = 2 and t.subject_cd = ? then t.point end) is not null"
+					+ "order by s.no "
+			);
+			statement.setString(1, subject);   // point1
+			statement.setString(2, subject);   // point2
+			statement.setString(3, school.getCd());
+			statement.setInt(4, entYear);
+			statement.setString(5, classNum);
+			statement.setString(6, subject);   // having
+			statement.setString(7, subject);   // having
 			// プリペアードステートメントを実行
 			resultSet = statement.executeQuery();
 			// リストへの格納処理を実行
