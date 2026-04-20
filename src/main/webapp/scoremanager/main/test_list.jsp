@@ -63,7 +63,10 @@
 								<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
 							</c:forEach>
 						</select>
+						${f3}
+						${sub.cd}
 					</div>
+					
 					
 
 
@@ -74,6 +77,8 @@
 
 					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
 					<div class="mt-2 text-warning">${errors.get("f1") }</div>
+					<div class="mt-2 text-warning">${errors.get("f2") }</div>
+					<div class="mt-2 text-warning">${errors.get("f3") }</div>
 				</div>
 
 			</form>

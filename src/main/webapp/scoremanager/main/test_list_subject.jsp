@@ -99,7 +99,7 @@
 				
 			</form>
 		</section>
-					<table class="table">
+			<table class="table">
 				<c:if test="${empty tests}">
 				    <div class="text-danger">データがありません</div>
 				</c:if>

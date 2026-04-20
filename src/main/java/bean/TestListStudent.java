@@ -2,7 +2,7 @@ package bean;
 
 import java.io.Serializable;
 
-public class Test implements Serializable {
+public class TestListStudent implements Serializable {
 
 	/**
 	 * 学校コード:String

@@ -8,46 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
-import bean.Test;
+import bean.Subject;
+import bean.TestListSubject;
 
-public class TestDao extends Dao {
+public class TestListSubjectDao extends Dao {
 
 	private String baseSql = "select * from test where school_cd = ? ";
-	private List<Test> TpostFilter(ResultSet resultSet) throws Exception {
+	private List<TestListSubject> TpostFilter(ResultSet resultSet) throws Exception {
 
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		try {
 			// リザルトセットを全権走査
 			while (resultSet.next()) {
 				// 学生インスタンスを初期化
-				Test test = new Test();
+				TestListSubject testListSubject = new TestListSubject();
 				// 学生インスタンスに検索結果をセット
-				test.setEntYear(resultSet.getInt("ent_year"));
-				test.setStudent_Name(resultSet.getString("student_name"));
-				test.setStudent_no(resultSet.getString("student_no"));
+				testListSubject.setEntYear(resultSet.getInt("ent_year"));
+				testListSubject.setStudentName(resultSet.getString("student_name"));
+				testListSubject.setStudentNo(resultSet.getString("student_no"));
 //				test.setSubject_cd(resultSet.getString("subject_cd"));
 //				test.setSchool_cd(resultSet.getString("school_cd"));
 				Integer p1 = (Integer) resultSet.getObject("point1");
 				if (p1 != null) {
-					String str = String.valueOf(p1);
-				    test.setPoint1(str);
-				} else {
-				    test.setPoint1("-");
-				    
+				    testListSubject.getPoints().put(1, p1);
 				}
 
 				Integer p2 = (Integer) resultSet.getObject("point2");
 				if (p2 != null) {
-				    String str = String.valueOf(p2);
-				    test.setPoint2(str);
-				} else {
-				    test.setPoint2("-");
+				    testListSubject.getPoints().put(2, p2);
 				}
-				test.setClass_num(resultSet.getString("class_num"));
+
+				testListSubject.setClassNum(resultSet.getString("class_num"));
 
 				// リストに追加
-				list.add(test);
+				list.add(testListSubject);
 			}
 		} catch (SQLException | NullPointerException e) {
 			throw e;
@@ -58,10 +53,10 @@ public class TestDao extends Dao {
 	}
 
 //	☆入学年度、クラス、科目、回数を引数としてDBから検索するフィルター
-	public List<Test> filter(School school, Integer entYear, String classNum, String subject ) throws Exception {
+	public List<TestListSubject> filter(School school, Integer entYear, String classNum, Subject subject ) throws Exception {
 		
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント
@@ -99,13 +94,13 @@ public class TestDao extends Dao {
 //					並び替え順は学生番号
 					+ "order by s.no "
 			);
-			statement.setString(1, subject);   // point1
-			statement.setString(2, subject);   // point2
+			statement.setString(1, subject.getCd());// point1
+			statement.setString(2, subject.getCd());// point2
 			statement.setString(3, school.getCd());
 			statement.setInt(4, entYear);
 			statement.setString(5, classNum);
-			statement.setString(6, subject);   // having
-			statement.setString(7, subject);   // having
+			statement.setString(6, subject.getCd());   // having
+			statement.setString(7, subject.getCd());   // having
 			// プリペアードステートメントを実行
 			resultSet = statement.executeQuery();
 			System.out.println("===== SQL START =====");
@@ -140,10 +135,10 @@ public class TestDao extends Dao {
 	}
     
 //	☆学生番号を引数としてDBから検索するフィルター
-	public List<Test> filter(School school, Integer no ) throws Exception {
+	public List<TestListSubject> filter(School school, Integer no ) throws Exception {
 
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント
@@ -205,10 +200,10 @@ public class TestDao extends Dao {
 
 	
 //	☆学校コードを引数としてDBから回数を取り出すフィルター
-	public List<Test> filter(School school) throws Exception {
+	public List<TestListSubject> filter(School school) throws Exception {
 
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント

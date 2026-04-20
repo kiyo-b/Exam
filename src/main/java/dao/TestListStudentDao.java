@@ -8,46 +8,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
-import bean.Test;
+import bean.TestListSubject;
 
-public class TestDao extends Dao {
+public class TestListStudentDao extends Dao {
 
 	private String baseSql = "select * from test where school_cd = ? ";
-	private List<Test> TpostFilter(ResultSet resultSet) throws Exception {
+	private List<TestListSubject> TpostFilter(ResultSet resultSet) throws Exception {
 
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		try {
 			// リザルトセットを全権走査
 			while (resultSet.next()) {
 				// 学生インスタンスを初期化
-				Test test = new Test();
+				TestListSubject testListSubject = new TestListSubject();
 				// 学生インスタンスに検索結果をセット
-				test.setEntYear(resultSet.getInt("ent_year"));
-				test.setStudent_Name(resultSet.getString("student_name"));
-				test.setStudent_no(resultSet.getString("student_no"));
+				testListSubject.setEntYear(resultSet.getInt("ent_year"));
+				testListSubject.setStudent_Name(resultSet.getString("student_name"));
+				testListSubject.setStudent_no(resultSet.getString("student_no"));
 //				test.setSubject_cd(resultSet.getString("subject_cd"));
 //				test.setSchool_cd(resultSet.getString("school_cd"));
 				Integer p1 = (Integer) resultSet.getObject("point1");
 				if (p1 != null) {
 					String str = String.valueOf(p1);
-				    test.setPoint1(str);
+				    testListSubject.setPoint1(str);
 				} else {
-				    test.setPoint1("-");
+				    testListSubject.setPoint1("-");
 				    
 				}
 
 				Integer p2 = (Integer) resultSet.getObject("point2");
 				if (p2 != null) {
 				    String str = String.valueOf(p2);
-				    test.setPoint2(str);
+				    testListSubject.setPoint2(str);
 				} else {
-				    test.setPoint2("-");
+				    testListSubject.setPoint2("-");
 				}
-				test.setClass_num(resultSet.getString("class_num"));
+				testListSubject.setClass_num(resultSet.getString("class_num"));
 
 				// リストに追加
-				list.add(test);
+				list.add(testListSubject);
 			}
 		} catch (SQLException | NullPointerException e) {
 			throw e;
@@ -58,10 +58,10 @@ public class TestDao extends Dao {
 	}
 
 //	☆入学年度、クラス、科目、回数を引数としてDBから検索するフィルター
-	public List<Test> filter(School school, Integer entYear, String classNum, String subject ) throws Exception {
+	public List<TestListSubject> filter(School school, Integer entYear, String classNum, String subject ) throws Exception {
 		
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント
@@ -140,10 +140,10 @@ public class TestDao extends Dao {
 	}
     
 //	☆学生番号を引数としてDBから検索するフィルター
-	public List<Test> filter(School school, Integer no ) throws Exception {
+	public List<TestListSubject> filter(School school, Integer no ) throws Exception {
 
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント
@@ -205,10 +205,10 @@ public class TestDao extends Dao {
 
 	
 //	☆学校コードを引数としてDBから回数を取り出すフィルター
-	public List<Test> filter(School school) throws Exception {
+	public List<TestListSubject> filter(School school) throws Exception {
 
 		// リストを初期化
-		List<Test> list = new ArrayList<>();
+		List<TestListSubject> list = new ArrayList<>();
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント

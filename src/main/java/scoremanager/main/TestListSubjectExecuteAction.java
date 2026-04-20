@@ -8,12 +8,12 @@ import java.util.Map;
 
 import bean.School;
 import bean.Subject;
-import bean.Test;
+import bean.TestListSubject;
 import dao.ClassNumDao;
 import dao.SchoolDao;
 import dao.StudentDao;
 import dao.SubjectDao;
-import dao.TestDao;
+import dao.TestListSubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -36,7 +36,8 @@ public class TestListSubjectExecuteAction extends Action {
 // 入力値が入る
 		String entYearStr = ""; 
 		String classNum = "";
-		String subject = ""; 
+		Subject subject = null;
+		String subjectCd = "";
 
 		
 		String student_no = "";
@@ -49,7 +50,7 @@ public class TestListSubjectExecuteAction extends Action {
 		int testcount = 0;
 
 // 学生情報を格納するリスト
-		List<Test> tests = null; 
+		List<TestListSubject> tests = null; 
 // 入学年度を10年分にするためにいまの年度を取得
 		LocalDate todaysDate = LocalDate.now(); 
 		int year = todaysDate.getYear(); 
@@ -63,7 +64,7 @@ public class TestListSubjectExecuteAction extends Action {
 //		クラス情報を取得するため
 		ClassNumDao classNumDao = new ClassNumDao();
 //		テスト情報を取得するため
-		TestDao testDao = new TestDao();
+		TestListSubjectDao testDao = new TestListSubjectDao();
 //		エラー表示するため
 		Map<String, String> errors = new HashMap<>(); 
 		
@@ -76,7 +77,12 @@ public class TestListSubjectExecuteAction extends Action {
 //		クラス
 		classNum = req.getParameter("f2");
 //		科目
-		subject = req.getParameter("f3");
+		subjectCd = req.getParameter("f3");
+
+		if (subjectCd != null && !subjectCd.equals("0")) {
+		    subject = new Subject();
+		    subject.setCd(subjectCd);
+		}
 		
 		
 	
@@ -114,7 +120,7 @@ public class TestListSubjectExecuteAction extends Action {
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (entYear != 0 
 				&& classNum != null && !classNum.equals("0") 
-				&& subject != null && !subject.equals("0")
+				&& subject != null)
 		) {
 			// 入学年度とクラス番号を指定（例：2023年の1組）System.out.println("DAO呼び出し直前");
 			System.out.println("DAO呼び出し直前");
@@ -135,6 +141,7 @@ public class TestListSubjectExecuteAction extends Action {
 //		検索条件を表示するために必要なデータ
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
+		req.setAttribute("f3", subjectCd);
 		req.setAttribute("student_no", student_no);      // 検索された学生名簿
 		req.setAttribute("class_num_set", list);    // クラスの選択肢
 		req.setAttribute("ent_year_set", entYearSet); // 入学年度の選択肢
