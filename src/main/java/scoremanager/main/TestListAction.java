@@ -7,21 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 import bean.School;
+import bean.Subject;
 import bean.Test;
 import dao.ClassNumDao;
 import dao.SchoolDao;
 import dao.StudentDao;
-<<<<<<< HEAD
-import dao.SchoolDao;
-=======
 import dao.SubjectDao;
 import dao.TestDao;
->>>>>>> branch 'master' of https://github.com/kiyo-b/Exam.git
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
-public class TestRegistAction extends Action {
+public class TestListAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -32,7 +29,7 @@ public class TestRegistAction extends Action {
 		// 【代わりの処理】ログイン情報の代わりに、仮の学校情報を設定
 		// 本来はログインした先生の学校を使いますが、今回はテスト用に「oom」校として動かします
 		School school = new School();
-		school.setCd("tes"); // お使いのテストデータに合わせた学校コードを指定してください
+		school.setCd("oom"); // お使いのテストデータに合わせた学校コードを指定してください
 
 		// ローカル変数の指定 1
 		// 画面から送られてくる検索条件や、DBから取ってきたデータを入れるための「箱」を準備します
@@ -41,9 +38,6 @@ public class TestRegistAction extends Action {
 		String classNum = "";
 		String subject = ""; 
 		String countStr = "";
-		String isAttend = "";
-		String isAttendStr = "";
-		
 		
 		String student_no = "";
 		String student_name = "";
@@ -76,23 +70,20 @@ public class TestRegistAction extends Action {
 		
 
 		// リクエストパラメーターの取得 2
-		// 画面の入力フォーム（f1=入学年度, f2=クラス, f3=科目, f4=回数）に書かれた値を受け取ります
+		// 画面の入力フォーム（f1=入学年度, f2=クラス, f3=科目）に書かれた値を受け取ります
 //		入学年度
 		entYearStr = req.getParameter("f1");
 //		クラス
 		classNum = req.getParameter("f2");
 //		科目
 		subject = req.getParameter("f3");
-//		回数
-		countStr = req.getParameter("f4");		
+	
 		// ビジネスロジック 4
 		// 受け取った値を「プログラムで計算・判定しやすい形」に整えます
 		if (entYearStr != null && !entYearStr.isEmpty()) { // 空文字チェックを追加
 			entYear = Integer.parseInt(entYearStr); // 文字列を数字に変換
 		}
-		if (countStr !=null && !countStr.isEmpty()) {// 空文字チェックを追加
-			testcount = Integer.parseInt(countStr); //文字列を数字に変換 
-		}
+
 		
 //	☆入学年度を表示するために必要（変更なし）
 		// 画面のプルダウン（入学年度の選択肢）を作るために、今年から10年前までの数字をリストにします
@@ -108,18 +99,21 @@ public class TestRegistAction extends Action {
 		// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
 		List<String> list = classNumDao.filter(school);
 		
-		List<Test> clist = testDao.filter(school);
+		List<Integer> countset = new ArrayList<>();
+		for (int i = 1; i<=2; i++) {
+			countset.add(i);
+		}
 		
 		List<Subject> slist = subjectDao.filter(school);
+		System.out.println(slist);
 
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (entYear != 0 
 				&& classNum != null && !classNum.equals("0") 
 				&& subject != null && !subject.equals("0")
-				&& testcount !=0
 		) {
 			// 入学年度とクラス番号を指定（例：2023年の1組）
-			tests = testDao.filter(school, entYear, classNum, subject, testcount);
+			tests = testDao.filter(school, entYear, classNum, subject);
 
 		} else {
 			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
@@ -139,10 +133,10 @@ public class TestRegistAction extends Action {
 		req.setAttribute("class_num_set", list);    // クラスの選択肢
 		req.setAttribute("ent_year_set", entYearSet); // 入学年度の選択肢
 		req.setAttribute("subject_set", slist); // 科目の選択肢
-		req.setAttribute("testcount_set", clist); // 回数の選択肢
+		req.setAttribute("testcount_set", countset); // 回数の選択肢
 
 		// JSPへフォワード 7
 		// 全てのデータを「student_list.jsp」というファイルに渡して、画面を表示させます
-		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+		req.getRequestDispatcher("/scoremanager/main/test_list.jsp").forward(req, res);
 	}
 }

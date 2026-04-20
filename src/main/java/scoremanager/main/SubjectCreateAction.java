@@ -1,32 +1,29 @@
 package scoremanager.main;
 
-import java.util.List;
-
-import bean.School;
 import bean.Subject;
 import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
-public class SubjectListAction extends Action {
+public class SubjectCreateAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    	// jspのinput
+    	String cd = req.getParameter("cd");
+    	String name = req.getParameter("name");
+    	
+    	// bean
+        Subject subject = new Subject();
+        subject.setCd(cd);
+        subject.setName(name);
+        
+        SubjectDao dao = new SubjectDao();
+        dao.insert(subject);
 
 
-        School school = new School();
-        school.setCd("tes"); // テスト用学校コード
-
-
-        List<Subject> subject = null;
-        SubjectDao subjectDao = new SubjectDao();
-
- 
-        subject = subjectDao.filter(school);
-
-
-        req.setAttribute("subject", subject);
+        
 
        
         req.getRequestDispatcher("subject_list.jsp").forward(req, res);

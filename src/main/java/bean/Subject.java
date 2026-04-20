@@ -13,6 +13,12 @@ public class Subject implements Serializable {
 	 * 科目名：String
 	 */
 	private String name;
+	
+	/**
+	 * 学校：school
+	 */
+	private School school;
+
 
 
 
@@ -33,6 +39,14 @@ public class Subject implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
 	}
 	
 }
