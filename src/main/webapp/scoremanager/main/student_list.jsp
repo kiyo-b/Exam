@@ -19,7 +19,7 @@
 			
 			<%-- 新規登録画面へのリンク --%>
 			<div class="my-2 text-end px-4">
-				<a href="StudentCreate.action">新規登録</a>
+			<a href="${pageContext.request.contextPath}/scoremanager/main/StudentCreate.action">新規登録</a>
 			</div>
 
 			<%-- 検索・絞り込みフォーム --%>
@@ -101,7 +101,7 @@
 									</c:choose>
 								</td>
 								<%-- 学生番号(no)をパラメータとして渡し、編集画面へ遷移 --%>
-								<td><a href="StudentUpdate.action?no=${student.no }">変更</a></td>
+								<td><a href="${pageContext.request.contextPath}/scoremanager/main/StudentUpdate.action?no=${student.no }">変更</a></td>
 							</tr>
 						</c:forEach>
 					</table>

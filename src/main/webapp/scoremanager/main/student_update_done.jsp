@@ -9,7 +9,7 @@
     <c:param name="content">
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">学生情報登録</h2>
             <p>変更が完了しました</p>
-            <a href="/StudentList.action">学生一覧</a>
+        <a href="${pageContext.request.contextPath}/scoremanager/main/StudentList.action">学生一覧</a>
     </c:param>
 </c:import>
 
