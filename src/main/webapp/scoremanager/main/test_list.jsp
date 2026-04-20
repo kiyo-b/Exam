@@ -23,7 +23,7 @@
 			</div>
 
 			<%-- 検索・絞り込みフォーム --%>
-			<form method="get" action="TestListSubjectAction">
+			<form method="get" >
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					
 					<%-- 入学年度の選択プルダウン --%>
@@ -69,7 +69,7 @@
 
 					<%-- 絞込み実行ボタン --%>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" formaction="TestListSubjectAction.action">検索</button>
+						<button class="btn btn-secondary" id="filter-button" formaction="TestListSubjectExecute.action">検索</button>
 					</div>
 
 					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>

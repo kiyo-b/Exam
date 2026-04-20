@@ -1,6 +1,6 @@
 <%-- 
     学生一覧表示画面
-    機能：入学年度、クラス、在学状況での絞り込みと、該当する学生の一覧表示
+    該当する学生の一覧表示
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
@@ -23,7 +23,7 @@
 			</div>
 
 			<%-- 検索・絞り込みフォーム --%>
-			<form method="get" action="TestListSubjectExecuteAction">
+			<form method="get" >
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					
 					<%-- 入学年度の選択プルダウン --%>
@@ -98,8 +98,34 @@
 				<div class="mt-2 text-warning">${errors.get("f1") }</div>
 				
 			</form>
-
-
 		</section>
+					<table class="table">
+				<c:if test="${empty tests}">
+				    <div class="text-danger">データがありません</div>
+				</c:if>
+			    <thead>
+			        <tr>
+			            <th>入学年度</th>
+			            <th>クラス</th>
+			            <th>学生番号</th>
+			            <th>名前</th>
+			            <th>1回目</th>
+			            <th>2回目</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <c:forEach var="t" items="${tests}">
+			            <tr>
+			                <td>${t.entYear}</td>
+			                <td>${t.class_num}</td>
+			                <td>${t.student_no}</td>
+			                <td>${t.student_Name}</td>
+			                <td>${t.point1}</td>
+			                <td>${t.point2}</td>
+			            </tr>
+			        </c:forEach>
+			    </tbody>
+			</table>
+		
 	</c:param>
 </c:import>

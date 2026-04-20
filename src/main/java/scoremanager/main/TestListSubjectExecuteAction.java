@@ -22,7 +22,7 @@ public class TestListSubjectExecuteAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-
+		System.out.println("★★★ TestListSubjectAction 動いてる ★★★");
 		// HttpSession session = req.getSession(); // コメントアウト
 		// Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
 
@@ -116,8 +116,10 @@ public class TestListSubjectExecuteAction extends Action {
 				&& classNum != null && !classNum.equals("0") 
 				&& subject != null && !subject.equals("0")
 		) {
-			// 入学年度とクラス番号を指定（例：2023年の1組）
+			// 入学年度とクラス番号を指定（例：2023年の1組）System.out.println("DAO呼び出し直前");
+			System.out.println("DAO呼び出し直前");
 			tests = testDao.filter(school, entYear, classNum, subject);
+			System.out.println("DAO呼び出し直後");
 
 		} else {
 			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
