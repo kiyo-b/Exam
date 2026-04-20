@@ -201,6 +201,23 @@ public class SubjectDao extends Dao {
 			return false;
 		}
 	}
+
+    public void insert(Subject subject) throws Exception {
+
+        String sql = "insert into subject (cd, name) values (?, ?)";
+
+        try (
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, subject.getCd());
+            ps.setString(2, subject.getName());
+
+            ps.executeUpdate();
+        }
+    }
+
+	
 }
  
  
