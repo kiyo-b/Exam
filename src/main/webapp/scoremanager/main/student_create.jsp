@@ -11,7 +11,7 @@
         <section class="me-4">
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">学生情報登録</h2>
 
-            <form action="${pageContext.request.contextPath}/StudentCreate.action" method="post">
+            <form action="${pageContext.request.contextPath}/scoremanager/main/StudentCreate.action" method="post">
 
                 <div class="col-4">
                     <label class="form-label" for="student-f1-select">入学年度</label>

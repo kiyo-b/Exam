@@ -90,6 +90,12 @@ public class StudentCreateAction extends Action {
                 errors.put("f2", "この学生番号は既に登録されています");
             }
         }
+        
+        if (!errors.isEmpty()) {
+            req.setAttribute("errors", errors);
+            req.getRequestDispatcher("student_create.jsp").forward(req, res);
+            return;
+        }
 
         // Student オブジェクト作成
         Student student = new Student();
