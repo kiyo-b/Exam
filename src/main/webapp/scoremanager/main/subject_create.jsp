@@ -19,17 +19,20 @@
 			
 			<form action="SubjectCreate.action" method="post">
 			
-				<input type="text" class="form-label"  name="cd" value="" placeholder="科目コードを入力してください" style="width: 900px;"><br>
+				<input type="text" class="form-label"  name="cd" value="" placeholder="科目コードを入力してください" style="width: 900px;" required><br>
 			
 				<label class="form-label">科目名</label><br>
 			
-				<input type="text" class="form-label" name="name" value="" placeholder="科目名を入力してください" style="width: 900px;"><br>
+				<input type="text" class="form-label" name="name" value="" placeholder="科目名を入力してください" style="width: 900px;" required><br>
 			
 				<input type="submit" class="btn btn-secondary" style="background-color: blue; color: white;" value="登録">
 			</form>
-			<a href="#">戻る</a>
+			<a href="SubjectList.action">戻る</a>
 
 
         </section>
     </c:param>
 </c:import>
+
+
+
