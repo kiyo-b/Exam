@@ -23,18 +23,27 @@
                             </option>
                         </c:forEach>
                     </select>
+                    <c:if test="${errors.f1 != null}">
+                    	<div class="text-danger">${errors.f1}</div>
+                    </c:if>
                 </div>
 
                 <div class="col-4">
-                    <label class="form-label" for="student-f2-input">学生番号</label>
-                    <input type="text" class="form-control" id="student-f2-input" name="f2" value="${f2}" placeholder="学生番号を入力してください">
+                	<label class="form-label" for="student-f2-input">学生番号</label>
+                	<input type="text" class="form-control" id="student-f2-input" name="f2" value="${f2}" placeholder="学生番号を入力してください">
+                	<c:if test="${errors.f2 != null}">
+                	<div class="text-danger mt-1">${errors.f2}</div>
+                	</c:if>
                 </div>
 
                 <div class="col-4">
-                    <label class="form-label" for="student-f3-input">氏名</label>
-                    <input type="text" class="form-control" id="student-f3-input" name="f3" value="${f3}" placeholder="氏名を入力してください">
+                	<label class="form-label" for="student-f3-input">氏名</label>
+                	<input type="text" class="form-control" id="student-f3-input" name="f3" value="${f3}" placeholder="氏名を入力してください">
+                	<c:if test="${errors.f3 != null}">
+                	<div class="text-danger mt-1">${errors.f3}</div>
+                	</c:if>
                 </div>
-
+                
                 <div class="col-4">
                     <label class="form-label" for="student-f4-select">クラス</label>
                     <select class="form-select" id="student-f4-select" name="f4">
@@ -45,6 +54,9 @@
                             </option>
                         </c:forEach>
                     </select>
+                    <c:if test="${errors.f4 != null}">
+                    	<div class="text-danger">${errors.f4}</div>
+                    </c:if>
                 </div>
 
                 <div class="col-2 text-center mt-3">
