@@ -43,7 +43,7 @@
 			
 			  <div class="col-2">
 			    <label class="form-label">科目</label>
-			    <select class="form-select" style="width: 300px;" name="f3">
+			    <select class="form-select" name="f3">
 			      <option value="0">--------</option>
 			    </select>
 			  </div>

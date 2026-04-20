@@ -10,6 +10,7 @@ import bean.School;
 import bean.Student;
 import dao.ClassNumDao;
 import dao.StudentDao;
+import dao.SchoolDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -34,6 +35,9 @@ public class TestRegistAction extends Action {
 		String classNum = "";
 		String subject = ""; 
 		String countStr = "";
+		String isAttend = "";
+		String isAttendStr = "";
+		
 		
 // 型変換などで変数を変える時　String→int
 		int entYear = 0; 
@@ -121,6 +125,6 @@ public class TestRegistAction extends Action {
 
 		// JSPへフォワード 7
 		// 全てのデータを「student_list.jsp」というファイルに渡して、画面を表示させます
-		req.getRequestDispatcher("student_list.jsp").forward(req, res);
+		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}
 }
