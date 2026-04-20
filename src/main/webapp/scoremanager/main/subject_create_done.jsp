@@ -15,9 +15,11 @@
                 科目情報登録
             </h2>
             
-            <label><p>登録が完了しました</p></label><br>
+            <label><p style="background-color:#8DC3A9; width: 100%;">登録が完了しました</p></label><br>
 			<a href="subject_create.jsp">戻る</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="SubjectList.action">科目一覧</a>
+			
 
 
         </section>
