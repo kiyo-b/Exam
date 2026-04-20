@@ -37,7 +37,7 @@ public class TestListAction extends Action {
 		String entYearStr = ""; 
 		String classNum = "";
 		String subject = ""; 
-		String countStr = "";
+
 		
 		String student_no = "";
 		String student_name = "";
