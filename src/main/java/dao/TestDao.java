@@ -28,8 +28,22 @@ public class TestDao extends Dao {
 				test.setStudent_no(resultSet.getString("student_no"));
 //				test.setSubject_cd(resultSet.getString("subject_cd"));
 //				test.setSchool_cd(resultSet.getString("school_cd"));
-				test.setPoint1((Integer) resultSet.getObject("point1"));
-				test.setPoint2((Integer) resultSet.getObject("point2"));
+				Integer p1 = (Integer) resultSet.getObject("point1");
+				if (p1 != null) {
+					String str = String.valueOf(p1);
+				    test.setPoint1(str);
+				} else {
+				    test.setPoint1("-");
+				    
+				}
+
+				Integer p2 = (Integer) resultSet.getObject("point2");
+				if (p2 != null) {
+				    String str = String.valueOf(p2);
+				    test.setPoint2(str);
+				} else {
+				    test.setPoint2("-");
+				}
 				test.setClass_num(resultSet.getString("class_num"));
 
 				// リストに追加

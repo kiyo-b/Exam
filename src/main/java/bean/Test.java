@@ -22,9 +22,9 @@ public class Test implements Serializable {
 	
 	private int no;
 	
-	private int point1;
+	private String point1;
 	
-	private int point2;
+	private String point2;
 	
 	private String class_num;
 
@@ -79,19 +79,19 @@ public class Test implements Serializable {
 		this.no = no;
 	}
 	
-	public int getPoint1() {
+	public String getPoint1() {
 		return point1;
 	}
 
-	public void setPoint1(int point1) {
+	public void setPoint1(String point1) {
 		this.point1 = point1;
 	}
 	
-	public int getPoint2() {
+	public String getPoint2() {
 		return point2;
 	}
 
-	public void setPoint2(int point2) {
+	public void setPoint2(String point2) {
 		this.point2 = point2;
 	}
 	
