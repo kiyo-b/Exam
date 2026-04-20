@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import bean.School;
+import bean.Subject;
 import bean.Test;
 import dao.ClassNumDao;
 import dao.SchoolDao;
@@ -39,6 +40,7 @@ public class TestRegistAction extends Action {
 
 		// 画面から送られてくる検索条件や、DBから取ってきたデータを入れるための「箱」を準備します
 
+		
 // 入力値が入る
 
 		String entYearStr = ""; 
@@ -174,7 +176,7 @@ public class TestRegistAction extends Action {
 
 			// 入学年度とクラス番号を指定（例：2023年の1組）
 
-			tests = testDao.filter(school, entYear, classNum, subject, testcount);
+			tests = testDao.filter(school, entYear, classNum, subject);
  
 		} else {
 
@@ -216,7 +218,7 @@ public class TestRegistAction extends Action {
 
 		// 全てのデータを「student_list.jsp」というファイルに渡して、画面を表示させます
 
-		req.getRequestDispatcher("student_list.jsp").forward(req, res);
+		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 
 	}
 

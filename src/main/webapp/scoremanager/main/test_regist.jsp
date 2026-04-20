@@ -45,6 +45,11 @@
 			    <label class="form-label">科目</label>
 			    <select class="form-select" name="f3">
 			      <option value="0">--------</option>
+			      <c:forEach var="subject" items="${subject_set}">
+			        <option value="${subject}" <c:if test="${subject == f3}">selected</c:if>>
+			          ${subject}
+			        </option>
+			      </c:forEach>
 			    </select>
 			  </div>
 			
@@ -52,6 +57,11 @@
 			    <label class="form-label">回数</label>
 			    <select class="form-select" name="f4">
 			      <option value="0">--------</option>
+			      <c:forEach var="testcount" items="${testcount_set}">
+			        <option value="${testcount}" <c:if test="${testcount == f4}">selected</c:if>>
+			          ${testcount}
+			        </option>
+			      </c:forEach>
 			    </select>
 			  </div>
 			
