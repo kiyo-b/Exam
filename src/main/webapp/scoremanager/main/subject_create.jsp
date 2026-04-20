@@ -27,7 +27,7 @@
 			
 				<input type="submit" class="btn btn-secondary" style="background-color: blue; color: white;" value="登録">
 			</form>
-			<a href="#">戻る</a>
+			<a href="SubjectList.action">戻る</a>
 
 
         </section>
