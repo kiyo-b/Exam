@@ -1,5 +1,5 @@
 package dao;
-
+ 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,20 +9,20 @@ import java.util.List;
 
 import bean.School;
 import bean.Subject;
-
+ 
 public class SubjectDao extends Dao {
-
+ 
 	private String baseSql = "select cd, name from subject where school_cd = ?";
-
+ 
 	public Subject get(String cd) throws Exception {
-
+ 
 		// 学生インスタンスを初期化
 		Subject subject = new Subject();
 		// データベースへのコネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント
 		PreparedStatement statement = null;
-
+ 
 		try {
 			// プリペアードステートメントにSQL文をセット
 			statement = connection.prepareStatement("select * from subject where cd = ?");
@@ -30,10 +30,10 @@ public class SubjectDao extends Dao {
 			statement.setString(1, cd);
 			// プリペアードステートメントを実行
 			ResultSet resultSet = statement.executeQuery();
-
+ 
 			// 学校Daoを初期化
 			SchoolDao schoolDao = new SchoolDao();
-
+ 
 			if (resultSet.next()) {
 				// リザルトセットが存在する場合
 				// 学生インスタンスに検索結果をセット
@@ -66,12 +66,12 @@ public class SubjectDao extends Dao {
 				}
 			}
 		}
-
+ 
 		return subject;
 	}
-
+ 
 	private List<Subject> postFilter(ResultSet resultSet, School school) throws Exception {
-
+ 
 		// リストを初期化
 		List<Subject> list = new ArrayList<>();
 		try {
@@ -89,13 +89,13 @@ public class SubjectDao extends Dao {
 		} catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
 		}
-
+ 
 		return list;
 	}
-
-
+ 
+ 
 	public List<Subject>filter(School school) throws Exception {
-
+ 
 		// リストを初期化
 		List<Subject> list = new ArrayList<>();
 		// コネクションを確立
@@ -106,32 +106,16 @@ public class SubjectDao extends Dao {
 		ResultSet resultSet = null;
 		// SQL文の条件
 		String order = " select cd, name from subject";
-
+ 
 		try {
 			// プリペアードステートメントにSQL文をセット
-<<<<<<< HEAD
-			statement = connection
-					.prepareStatement("select name, cd from subject where school_cd=? order by name");
-=======
 			statement = connection.prepareStatement(baseSql);
->>>>>>> branch 'master' of https://github.com/kiyo-b/Exam.git
 			// プリペアードステートメントに学校コードをバインド
 			statement.setString(1, school.getCd());
 			// プリペアードステートメントを実行
-<<<<<<< HEAD
-			ResultSet rSet = statement.executeQuery();
-
-			// リザルトセットを全件走査
-			while (rSet.next()) {
-				// リストにクラス番号を追加
-				list.add(rSet.getString("name"));
-				list.add(rSet.getString("cd"));
-			}
-=======
 			resultSet = statement.executeQuery();
 			// リストへの格納処理を実行
 			list = postFilter(resultSet, school);
->>>>>>> branch 'master' of https://github.com/kiyo-b/Exam.git
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -152,19 +136,19 @@ public class SubjectDao extends Dao {
 				}
 			}
 		}
-
+ 
 		return list;
 	}
-
+ 
 	public boolean save(Subject subject) throws Exception {
-
+ 
 		// コネクションを確立
 		Connection connection = getConnection();
 		// プリペアードステートメント
 		PreparedStatement statement = null;
 		// 実行件数
 		int count = 0;
-
+ 
 		try {
 			// データベースから学生を取得
 			Subject old = get(subject.getCd());
@@ -184,10 +168,10 @@ public class SubjectDao extends Dao {
 				statement.setString(1, subject.getName());
 				statement.setString(2, subject.getCd());
 			}
-
+ 
 			// プリペアードステートメントを実行
 			count = statement.executeUpdate();
-
+ 
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -208,7 +192,7 @@ public class SubjectDao extends Dao {
 				}
 			}
 		}
-
+ 
 		if (count > 0) {
 			// 実行件数が1件以上ある場合
 			return true;
@@ -218,3 +202,5 @@ public class SubjectDao extends Dao {
 		}
 	}
 }
+ 
+ 

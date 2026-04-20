@@ -72,17 +72,17 @@ public class TestDao extends Dao {
 //					学校コードと入学年度とクラス番号が入力された値の時
 					+ "where s.school_cd = ? and s.ent_year = ? and s.class_num = ? "
 //					入学年度、クラス番号、学生番号、名前をグループにして
-//					+ "group by s.ent_year, s.class_num, s.no, s.name "
-//					+ "having "
-////					グループの検索条件
-////					1回目の点数がnullじゃないとき
-//					+ "max(case when t.no = 1 and t.subject_cd = ? then t.point end) is not null "
-////					または
-//					+ "or "
-////					2回目の点数がnullじゃないとき
-//					+ "max(case when t.no = 2 and t.subject_cd = ? then t.point end) is not null "
-////					並び替え順は学生番号
-//					+ "order by s.no "
+					+ "group by s.ent_year, s.class_num, s.no, s.name "
+					+ "having "
+//					グループの検索条件
+//					1回目の点数がnullじゃないとき
+					+ "max(case when t.no = 1 and t.subject_cd = ? then t.point end) is not null "
+//					または
+					+ "or "
+//					2回目の点数がnullじゃないとき
+					+ "max(case when t.no = 2 and t.subject_cd = ? then t.point end) is not null "
+//					並び替え順は学生番号
+					+ "order by s.no "
 			);
 			statement.setString(1, subject);   // point1
 			statement.setString(2, subject);   // point2
