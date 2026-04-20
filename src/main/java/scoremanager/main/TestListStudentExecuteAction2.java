@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
-public class TestListAction extends Action {
+public class TestListStudentExecuteAction2 extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -72,11 +72,7 @@ public class TestListAction extends Action {
 		// リクエストパラメーターの取得 2
 		// 画面の入力フォーム（f1=入学年度, f2=クラス, f3=科目）に書かれた値を受け取ります
 //		入学年度
-		entYearStr = req.getParameter("f1");
-//		クラス
-		classNum = req.getParameter("f2");
-//		科目
-		subject = req.getParameter("f3");
+		student_no = req.getParameter("f4");
 	
 		// ビジネスロジック 4
 		// 受け取った値を「プログラムで計算・判定しやすい形」に整えます

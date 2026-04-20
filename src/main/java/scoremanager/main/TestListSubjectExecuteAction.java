@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
-public class TestListAction extends Action {
+public class TestListSubjectExecuteAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -37,7 +37,7 @@ public class TestListAction extends Action {
 		String entYearStr = ""; 
 		String classNum = "";
 		String subject = ""; 
-		String countStr = "";
+
 		
 		String student_no = "";
 		String student_name = "";
@@ -77,6 +77,8 @@ public class TestListAction extends Action {
 		classNum = req.getParameter("f2");
 //		科目
 		subject = req.getParameter("f3");
+		
+		
 	
 		// ビジネスロジック 4
 		// 受け取った値を「プログラムで計算・判定しやすい形」に整えます
@@ -92,7 +94,9 @@ public class TestListAction extends Action {
 			entYearSet.add(i);
 		}
 //  ☆ここまで
-		
+		System.out.println("entYear=" + entYear);
+		System.out.println("classNum=" + classNum);
+		System.out.println("subject=" + subject);
 		
 		// DBからデータ取得 3
 		// 【変更】teacher.getSchool() を school に書き換え
@@ -121,7 +125,7 @@ public class TestListAction extends Action {
 			req.setAttribute("errors", errors);
 //			tests = studentDao.filter(school, isAttend);
 		}
-
+		System.out.println("★★★ 実行されたAction ★★★");
 		// レスポンス値をセット 6
 		// 次の画面（JSP）で表示するために、検索結果や選択肢などのデータを詰め込みます
 //		検索結果を表示するための検索後結果
@@ -137,6 +141,6 @@ public class TestListAction extends Action {
 
 		// JSPへフォワード 7
 		// 全てのデータを「student_list.jsp」というファイルに渡して、画面を表示させます
-		req.getRequestDispatcher("/scoremanager/main/test_list.jsp").forward(req, res);
+		req.getRequestDispatcher("/scoremanager/main/test_list_subject.jsp").forward(req, res);
 	}
 }

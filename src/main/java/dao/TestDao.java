@@ -58,19 +58,30 @@ public class TestDao extends Dao {
 		try {
 			// プリペアードステートメントにSQL文をセット
 			statement = connection.prepareStatement(
-					"select ent_year, s.class_num, s.no as student_no, "
+//					入学年度、クラス、学生番号、名前、1回目、2回目のデータを抽出
+					"select s.ent_year, s.class_num, s.no as student_no, "
 					+ "s.name as student_name ,"
+//					回数が1の時、科目が入力された値だったら
 					+ "max(case when t.no = 1 and t.subject_cd = ? then t.point end) as point1,"
+//					回数が2の時、科目が入力された値だったら
 					+ "max(case when t.no = 2 and t.subject_cd = ? then t.point end) as point2 "
+//					学生テーブルとテストテーブルから
 					+ "from student s left join test t "
+//					学生テーブルのとテストテーブルの学生番号と学校コードが一致
 					+ "on s.no = t.student_no and s.school_cd = t.school_cd "
-					+ "where s.school_cd = ? and s.ent_year = ?"
-					+ "and s.class_num = ? "
-					+ "group by s.ent_year, s.class_num, s.no, s.name"
-					+ "having\n"
+//					学校コードと入学年度とクラス番号が入力された値の時
+					+ "where s.school_cd = ? and s.ent_year = ? and s.class_num = ? "
+//					入学年度、クラス番号、学生番号、名前をグループにして
+					+ "group by s.ent_year, s.class_num, s.no, s.name "
+					+ "having "
+//					グループの検索条件
+//					1回目の点数がnullじゃないとき
 					+ "max(case when t.no = 1 and t.subject_cd = ? then t.point end) is not null "
+//					または
 					+ "or "
-					+ "max(case when t.no = 2 and t.subject_cd = ? then t.point end) is not null"
+//					2回目の点数がnullじゃないとき
+					+ "max(case when t.no = 2 and t.subject_cd = ? then t.point end) is not null "
+//					並び替え順は学生番号
 					+ "order by s.no "
 			);
 			statement.setString(1, subject);   // point1
@@ -82,6 +93,11 @@ public class TestDao extends Dao {
 			statement.setString(7, subject);   // having
 			// プリペアードステートメントを実行
 			resultSet = statement.executeQuery();
+			System.out.println("===== SQL START =====");
+			System.out.println(statement);
+			System.out.println("===== SQL END =====");
+
+
 			// リストへの格納処理を実行
 			list = TpostFilter(resultSet);
 		} catch (Exception e) {
