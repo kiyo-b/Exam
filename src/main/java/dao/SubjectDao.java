@@ -217,36 +217,51 @@ public class SubjectDao extends Dao {
 			ps.executeUpdate();
 		}
 	}
-	
+
 
 	public Subject get(String cd, School school) throws Exception {
-	
-	        Subject subject = null;
-	
-	        Connection con = getConnection();
-	
-	        PreparedStatement st = con.prepareStatement(
-	            "SELECT * FROM subject WHERE cd = ? AND school_cd = ?"
-	        );
-	
-	        st.setString(1, cd);
-	        st.setString(2, school.getCd());
-	
-	        ResultSet rs = st.executeQuery();
-	
-	        if (rs.next()) {
-	            subject = new Subject();
-	            subject.setCd(rs.getString("cd"));
-	            subject.setName(rs.getString("name"));
-	            subject.setSchool(school);
-	        }
-	
-	        rs.close();
-	        st.close();
-	        con.close();
-	
-	        return subject;
-	    }
+
+		Subject subject = null;
+
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement(
+				"SELECT * FROM subject WHERE cd = ? AND school_cd = ?"
+				);
+
+		st.setString(1, cd);
+		st.setString(2, school.getCd());
+
+		ResultSet rs = st.executeQuery();
+
+		if (rs.next()) {
+			subject = new Subject();
+			subject.setCd(rs.getString("cd"));
+			subject.setName(rs.getString("name"));
+			subject.setSchool(school);
+		}
+
+		rs.close();
+		st.close();
+		con.close();
+
+		return subject;
+	}
+	public void update(Subject subject) throws Exception {
+
+		String sql = "update subject set name = ? where cd = ?  and school_cd = ?";
+
+		try (
+				Connection con = getConnection();
+				PreparedStatement ps = con.prepareStatement(sql)
+				) {
+			ps.setString(1, subject.getName());
+			ps.setString(2, subject.getCd());
+			ps.setString(3, subject.getSchool().getCd());
+
+			ps.executeUpdate();
+		}
+	}
 
 
 
