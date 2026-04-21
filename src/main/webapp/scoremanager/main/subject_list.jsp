@@ -17,7 +17,7 @@
 
             <!-- 新規登録 -->
             <div class="my-2 text-end px-4">
-                <a href="SubjectCreate.action">新規登録</a>
+                <a href="subject_create.jsp">新規登録</a>
             </div>
 
             <!-- 科目一覧 -->
