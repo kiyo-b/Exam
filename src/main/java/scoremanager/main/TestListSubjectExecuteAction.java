@@ -8,12 +8,12 @@ import java.util.Map;
 
 import bean.School;
 import bean.Subject;
-import bean.TestListSubject;
+import bean.Test;
 import dao.ClassNumDao;
 import dao.SchoolDao;
 import dao.StudentDao;
 import dao.SubjectDao;
-import dao.TestListSubjectDao;
+import dao.TestDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -36,7 +36,7 @@ public class TestListSubjectExecuteAction extends Action {
 // 入力値が入る
 		String entYearStr = ""; 
 		String classNum = "";
-		Subject subject = null;
+		String subject = "";
 		String subjectCd = "";
 
 		
@@ -50,7 +50,7 @@ public class TestListSubjectExecuteAction extends Action {
 		int testcount = 0;
 
 // 学生情報を格納するリスト
-		List<TestListSubject> tests = null; 
+		List<Test> tests = null; 
 // 入学年度を10年分にするためにいまの年度を取得
 		LocalDate todaysDate = LocalDate.now(); 
 		int year = todaysDate.getYear(); 
@@ -64,7 +64,7 @@ public class TestListSubjectExecuteAction extends Action {
 //		クラス情報を取得するため
 		ClassNumDao classNumDao = new ClassNumDao();
 //		テスト情報を取得するため
-		TestListSubjectDao testDao = new TestListSubjectDao();
+		TestDao testDao = new TestDao();
 //		エラー表示するため
 		Map<String, String> errors = new HashMap<>(); 
 		
@@ -79,11 +79,7 @@ public class TestListSubjectExecuteAction extends Action {
 //		科目
 		subjectCd = req.getParameter("f3");
 
-		if (subjectCd != null && !subjectCd.equals("0")) {
-		    subject = new Subject();
-		    subject.setCd(subjectCd);
-		}
-		
+
 		
 	
 		// ビジネスロジック 4
@@ -120,11 +116,11 @@ public class TestListSubjectExecuteAction extends Action {
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (entYear != 0 
 				&& classNum != null && !classNum.equals("0") 
-				&& subject != null)
-		) {
+				&& subjectCd != null)
+		 {
 			// 入学年度とクラス番号を指定（例：2023年の1組）System.out.println("DAO呼び出し直前");
 			System.out.println("DAO呼び出し直前");
-			tests = testDao.filter(school, entYear, classNum, subject);
+			tests = testDao.filter(school, entYear, classNum, subjectCd);
 			System.out.println("DAO呼び出し直後");
 
 		} else {

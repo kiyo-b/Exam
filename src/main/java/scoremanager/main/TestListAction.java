@@ -106,21 +106,23 @@ public class TestListAction extends Action {
 		
 		List<Subject> slist = subjectDao.filter(school);
 		System.out.println(slist);
+		
+		tests = testDao.filter(school);
 
-		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
-		if (entYear != 0 
-				&& classNum != null && !classNum.equals("0") 
-				&& subject != null && !subject.equals("0")
-		) {
-			// 入学年度とクラス番号を指定（例：2023年の1組）
-			tests = testDao.filter(school, entYear, classNum, subject);
-
-		} else {
-			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
-			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-			req.setAttribute("errors", errors);
-//			tests = studentDao.filter(school, isAttend);
-		}
+//		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
+//		if (entYear != 0 
+//				&& classNum != null && !classNum.equals("0") 
+//				&& subject != null && !subject.equals("0")
+//		) {
+//			// 入学年度とクラス番号を指定（例：2023年の1組）
+//			tests = testDao.filter(school, entYear, classNum, subject);
+//
+//		} else {
+//			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
+//			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
+//			req.setAttribute("errors", errors);
+////			tests = studentDao.filter(school, isAttend);
+//		}
 
 		// レスポンス値をセット 6
 		// 次の画面（JSP）で表示するために、検索結果や選択肢などのデータを詰め込みます

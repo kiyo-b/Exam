@@ -140,7 +140,7 @@ public class TestDao extends Dao {
 	}
     
 //	☆学生番号を引数としてDBから検索するフィルター
-	public List<Test> filter(School school, Integer no ) throws Exception {
+	public List<Test> filter(School school, String no ) throws Exception {
 
 		// リストを初期化
 		List<Test> list = new ArrayList<>();
@@ -150,35 +150,49 @@ public class TestDao extends Dao {
 		PreparedStatement statement = null;
 		// リザルトセット
 		ResultSet resultSet = null;
-
+		
 
 		try {
 			// プリペアードステートメントにSQL文をセット
 			statement = connection.prepareStatement(
-				    "select s.ent_year, s.class_num, s.no as student_no, "
+				    "select "
+				  + "s.no as student_no, "
 				  + "s.name as student_name, "
-				  + "max(case when t.no = 1 then t.point end) as point1, "
-				  + "max(case when t.no = 2 then t.point end) as point2 "
-				  + "from student s left join test t "
-				  + "on s.no = t.student_no and s.school_cd = t.school_cd "
-				  + "where s.school_cd = ? "
-				  + "and s.no = ? "
-				  + "group by s.ent_year, s.class_num, s.no, s.name "
-				  + "having "
-				  + "max(case when t.no = 1 then t.point end) is not null "
-				  + "or "
-				  + "max(case when t.no = 2 then t.point end) is not null "
+				  + "sub.name as subject_name, "
+				  + "t.subject_cd, "
+				  + "t.no, "
+				  + "t.point "
+				  + "from test t "
+				  + "inner join student s "
+				  + "on t.student_no = s.no and t.school_cd = s.school_cd "
+				  + "inner join subject sub "
+				  + "on t.subject_cd = sub.cd "
+				  + "where t.school_cd = ? "
+				  + "and t.student_no = ? "
+				  + "order by t.subject_cd, t.no"
 				);
 
 //					並び替え順は学生番号
 			statement.setString(1, school.getCd());
 			// プリペアードステートメントに入学年度をバインド
-			statement.setInt(2, no);
+			statement.setString(2, no);
 
 			// プリペアードステートメントを実行
 			resultSet = statement.executeQuery();
 			// リストへの格納処理を実行
-			list = TpostFilter(resultSet);
+
+			while (resultSet.next()) {
+			    Test t = new Test();
+			    t.setStudent_no(resultSet.getString("student_no"));
+			    t.setStudent_Name(resultSet.getString("student_name"));
+			    t.setSubjectName(resultSet.getString("subject_name"));
+			    t.setSubjectCd(resultSet.getString("subject_cd"));
+			    t.setNo(resultSet.getInt("no"));
+			    t.setPoint(resultSet.getString("point"));
+			    list.add(t);
+			}
+			
+			
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -216,17 +230,32 @@ public class TestDao extends Dao {
 		// リザルトセット
 		ResultSet resultSet = null;
 
+
 		try {
 			// プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select distinct no from test");
+			statement = connection.prepareStatement(
+				    "select s.ent_year, s.class_num, s.no as student_no, "
+				  + "s.name as student_name, "
+				  + "max(case when t.no = 1 then t.point end) as point1, "
+				  + "max(case when t.no = 2 then t.point end) as point2 "
+				  + "from student s left join test t "
+				  + "on s.no = t.student_no and s.school_cd = t.school_cd "
+				  + "where s.school_cd = ? "
+				  + "group by s.ent_year, s.class_num, s.no, s.name "
+				  + "having "
+				  + "max(case when t.no = 1 then t.point end) is not null "
+				  + "or "
+				  + "max(case when t.no = 2 then t.point end) is not null "
+				);
 
+//					並び替え順は学生番号
+			statement.setString(1, school.getCd());
+			// プリペアードステートメントに入学年度をバインド
 
 			// プリペアードステートメントを実行
 			resultSet = statement.executeQuery();
 			// リストへの格納処理を実行
-			while (resultSet.next()) {
-			    int no = resultSet.getInt("no");
-			}
+			list = TpostFilter(resultSet);
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -250,6 +279,7 @@ public class TestDao extends Dao {
 
 		return list;
 	}
+
 
 	
 	// 	public boolean save(Test test) throws Exception {

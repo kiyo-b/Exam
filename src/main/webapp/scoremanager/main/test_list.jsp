@@ -23,11 +23,13 @@
 			</div>
 
 			<%-- 検索・絞り込みフォーム --%>
-			<form method="get" >
+			<form method="get" class="px-8" >
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-					
+					<div class="col-2 text-center">
+						科目情報
+					</div>
 					<%-- 入学年度の選択プルダウン --%>
-					<div class="col-4">
+					<div class="col-2">
 						<label class="form-label" for="student-f1-select">入学年度</label>
 						<select class="form-select" id="student-f1-select" name="f1">
 							<option value="0">--------</option>
@@ -40,7 +42,8 @@
 					</div>
 
 					<%-- クラス番号の選択プルダウン --%>
-					<div class="col-4">
+				
+					<div class="col-2">
 						<label class="form-label" for="student-f2-select">クラス</label>
 						<select class="form-select" id="student-f2-select" name="f2">
 							<option value="0">--------</option>
@@ -76,35 +79,66 @@
 					</div>
 
 					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-					<div class="mt-2 text-warning">${errors.get("f1") }</div>
-					<div class="mt-2 text-warning">${errors.get("f2") }</div>
-					<div class="mt-2 text-warning">${errors.get("f3") }</div>
-				</div>
+					<c:if test="${param.f1 == '0' or param.f2 == '0' or param.f3 == '0'}">
+					    <div class="mt-2 text-warning">
+					        入学年度とクラスと科目を選択してください。
+					    </div>
+					</c:if>
+					<div class="px-3">
+						<hr class="my-3 mx-4">
+					</div>
 
-			</form>
+					<div class="col-2 text-center">
+						学生情報
+					</div>
+					<%-- 学生番号のテキストボックス --%>
+					<div class="col-4">
+					    <label class="form-label" for="student-no-input">学生番号</label>
+					    <input type="text" class="form-control" id="student-no-input" name="f4" value="${studentNo}">
+					</div>
 					
-
-			<form method="get" action="TestListStudentAction">
-				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-		
-								
-				<%-- 学生番号のテキストボックス --%>
-				<div class="col-4">
-				    <label class="form-label" for="student-no-input">学生番号</label>
-				    <input type="text" class="form-control" id="student-no-input" name="f1" value="${studentNo}">
+					<%-- 絞込み実行ボタン --%>
+					<div class="col-2 text-center">
+						<button class="btn btn-secondary" id="filter-button" formaction="TestListStudentExecute.action">検索</button>
+					</div>
+	
+					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
+					<c:if test="${empty param.f4}">
+					    <div class="mt-2 text-warning">
+					        学生番号を入力してください。
+					    </div>
+					</c:if>
 				</div>
-				
-				<%-- 絞込み実行ボタン --%>
-				<div class="col-2 text-center">
-					<button class="btn btn-secondary" id="filter-button" >検索</button>
-				</div>
-
-				<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-				<div class="mt-2 text-warning">${errors.get("f1") }</div>
-				
 			</form>
 
 
 		</section>
+			<table class="table">
+				<c:if test="${empty tests}">
+				    <div class="text-danger">データがありません</div>
+				</c:if>
+			    <thead>
+			        <tr>
+			            <th>入学年度</th>
+			            <th>クラス</th>
+			            <th>学生番号</th>
+			            <th>名前</th>
+			            <th>1回目</th>
+			            <th>2回目</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <c:forEach var="t" items="${tests}">
+			            <tr>
+			                <td>${t.entYear}</td>
+			                <td>${t.class_num}</td>
+			                <td>${t.student_no}</td>
+			                <td>${t.student_Name}</td>
+			                <td>${t.point1}</td>
+			                <td>${t.point2}</td>
+			            </tr>
+			        </c:forEach>
+			    </tbody>
+			</table>
 	</c:param>
 </c:import>

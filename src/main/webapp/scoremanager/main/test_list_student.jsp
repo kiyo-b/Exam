@@ -66,7 +66,8 @@
 								<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
 							</c:forEach>
 						</select>
-
+						${f3}
+						${sub.cd}
 					</div>
 					
 					
@@ -83,7 +84,6 @@
 					        入学年度とクラスと科目を選択してください。
 					    </div>
 					</c:if>
-					
 					<div class="px-3">
 						<hr class="my-3 mx-4">
 					</div>
@@ -102,15 +102,18 @@
 						<button class="btn btn-secondary" id="filter-button" formaction="TestListStudentExecute.action">検索</button>
 					</div>
 	
-					<%--入力不備 --%>
-					<c:if test="${empty param.f4}">
+					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
+					<c:if test="${pageContext.request.servletPath == '/scoremanager/main/TestListStudentExecute.action' and empty param.f4}">
 					    <div class="mt-2 text-warning">
 					        学生番号を入力してください。
 					    </div>
 					</c:if>
 				</div>
-			</form>	
+			</form>
 		</section>
+		<c:if test="${not empty tests}">
+		    氏名：${tests[0].student_Name}(${tests[0].student_no})
+		</c:if>
 		<c:choose>
 			<c:when test="${empty tests}">
 			    <div class="text-danger">学生情報が存在しませんでした。</div>
@@ -119,29 +122,24 @@
 				<table class="table">
 				    <thead>
 				        <tr>
-				            <th>入学年度</th>
-				            <th>クラス</th>
-				            <th>学生番号</th>
-				            <th>名前</th>
-				            <th>1回目</th>
-				            <th>2回目</th>
+				            <th>科目名</th>
+				            <th>科目コード</th>
+				            <th>回数</th>
+				            <th>点数</th>
 				        </tr>
 				    </thead>
 				    <tbody>
 				        <c:forEach var="t" items="${tests}">
 				            <tr>
-				                <td>${t.entYear}</td>
-				                <td>${t.class_num}</td>
-				                <td>${t.student_no}</td>
-				                <td>${t.student_Name}</td>
-				                <td>${t.point1}</td>
-				                <td>${t.point2}</td>
+				                <td>${t.subjectName}</td>
+				                <td>${t.subjectCd}</td>
+				                <td>${t.no}</td>
+				                <td>${t.point}</td>
 				            </tr>
 				        </c:forEach>
 				    </tbody>
 				</table>
 			</c:otherwise>
 		</c:choose>
-
 	</c:param>
 </c:import>

@@ -37,7 +37,7 @@ public class TestListStudentExecuteAction extends Action {
 		String entYearStr = ""; 
 		String classNum = "";
 		String subject = ""; 
-		String countStr = "";
+
 		
 		String student_no = "";
 		String student_name = "";
@@ -46,7 +46,7 @@ public class TestListStudentExecuteAction extends Action {
 		
 // 型変換などで変数を変える時　String→int
 		int entYear = 0; 
-		int testcount = 0;
+		int no = 0;
 
 // 学生情報を格納するリスト
 		List<Test> tests = null; 
@@ -73,13 +73,13 @@ public class TestListStudentExecuteAction extends Action {
 		// 画面の入力フォーム（f1=入学年度, f2=クラス, f3=科目）に書かれた値を受け取ります
 //		入学年度
 		student_no = req.getParameter("f4");
-	
-		// ビジネスロジック 4
-		// 受け取った値を「プログラムで計算・判定しやすい形」に整えます
-		if (entYearStr != null && !entYearStr.isEmpty()) { // 空文字チェックを追加
-			entYear = Integer.parseInt(entYearStr); // 文字列を数字に変換
+		
+		System.out.println("入力 student_no = [" + student_no + "]");
+		
+		if (student_no !=null) {
+			student_no = student_no.trim();
 		}
-
+		
 		
 //	☆入学年度を表示するために必要（変更なし）
 		// 画面のプルダウン（入学年度の選択肢）を作るために、今年から10年前までの数字をリストにします
@@ -104,16 +104,12 @@ public class TestListStudentExecuteAction extends Action {
 		System.out.println(slist);
 
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
-		if (entYear != 0 
-				&& classNum != null && !classNum.equals("0") 
-				&& subject != null && !subject.equals("0")
-		) {
-			// 入学年度とクラス番号を指定（例：2023年の1組）
-			tests = testDao.filter(school, entYear, classNum, subject);
+		if (student_no != null && !student_no.isEmpty()) {
+		    tests = testDao.filter(school, student_no);
 
 		} else {
 			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
-			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
+			errors.put("f4", "学生番号を入力してください");
 			req.setAttribute("errors", errors);
 //			tests = studentDao.filter(school, isAttend);
 		}
@@ -122,9 +118,7 @@ public class TestListStudentExecuteAction extends Action {
 		// 次の画面（JSP）で表示するために、検索結果や選択肢などのデータを詰め込みます
 //		検索結果を表示するための検索後結果
 		req.setAttribute("tests", tests);
-//		検索条件を表示するために必要なデータ
-		req.setAttribute("f1", entYear);
-		req.setAttribute("f2", classNum);
+		req.setAttribute("f4", student_no);
 		req.setAttribute("student_no", student_no);      // 検索された学生名簿
 		req.setAttribute("class_num_set", list);    // クラスの選択肢
 		req.setAttribute("ent_year_set", entYearSet); // 入学年度の選択肢
@@ -133,6 +127,6 @@ public class TestListStudentExecuteAction extends Action {
 
 		// JSPへフォワード 7
 		// 全てのデータを「student_list.jsp」というファイルに渡して、画面を表示させます
-		req.getRequestDispatcher("/scoremanager/main/test_list.jsp").forward(req, res);
+		req.getRequestDispatcher("/scoremanager/main/test_list_student.jsp").forward(req, res);
 	}
 }
