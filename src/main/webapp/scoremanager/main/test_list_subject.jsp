@@ -1,6 +1,6 @@
 <%-- 
     学生一覧表示画面
-    機能：入学年度、クラス、在学状況での絞り込みと、該当する学生の一覧表示
+    該当する学生の一覧表示
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
@@ -15,7 +15,11 @@
 	<%-- メインコンテンツ部分の定義 --%>
 	<c:param name="content">
 		<section class="me=4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
+<<<<<<< HEAD
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績参照（科目）</h2>
+=======
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績一覧（科目）</h2>
+>>>>>>> branch 'master' of https://github.com/kiyo-b/Exam.git
 			
 			<%-- 新規登録画面へのリンク --%>
 			<div class="my-2 text-end px-4">
@@ -23,11 +27,13 @@
 			</div>
 
 			<%-- 検索・絞り込みフォーム --%>
-			<form method="get" action="TestListSubjectExecuteAction">
+			<form method="get" class="px-8" >
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-					
+					<div class="col-2 text-center">
+						科目情報
+					</div>
 					<%-- 入学年度の選択プルダウン --%>
-					<div class="col-4">
+					<div class="col-2">
 						<label class="form-label" for="student-f1-select">入学年度</label>
 						<select class="form-select" id="student-f1-select" name="f1">
 							<option value="0">--------</option>
@@ -40,7 +46,8 @@
 					</div>
 
 					<%-- クラス番号の選択プルダウン --%>
-					<div class="col-4">
+				
+					<div class="col-2">
 						<label class="form-label" for="student-f2-select">クラス</label>
 						<select class="form-select" id="student-f2-select" name="f2">
 							<option value="0">--------</option>
@@ -63,43 +70,84 @@
 								<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
 							</c:forEach>
 						</select>
+
 					</div>
+					
 					
 
 
 					<%-- 絞込み実行ボタン --%>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button">検索</button>
+						<button class="btn btn-secondary" id="filter-button" formaction="TestListSubjectExecute.action">検索</button>
 					</div>
 
 					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-					<div class="mt-2 text-warning">${errors.get("f1") }</div>
-				</div>
-
-			</form>
+					<c:if test="${not empty errors}">
+					    <div class="mt-2 text-danger">
+					        ${errors.f1}
+					    </div>
+					</c:if>
 					
+					<div class="px-3">
+						<hr class="my-3 mx-4">
+					</div>
 
-			<form method="get" action="TestListStudentExecuteAction">
-				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-		
-								
-				<%-- 学生番号のテキストボックス --%>
-				<div class="col-4">
-				    <label class="form-label" for="student-no-input">学生番号</label>
-				    <input type="text" class="form-control" id="student-no-input" name="f4" value="${studentNo}">
+					<div class="col-2 text-center">
+						学生情報
+					</div>
+					<%-- 学生番号のテキストボックス --%>
+					<div class="col-4">
+					    <label class="form-label" for="student-no-input">学生番号</label>
+					    <input type="text" class="form-control" id="student-no-input" name="f4" value="${studentNo}">
+					</div>
+					
+					<%-- 絞込み実行ボタン --%>
+					<div class="col-2 text-center">
+						<button class="btn btn-secondary" id="filter-button" formaction="TestListStudentExecute.action">検索</button>
+					</div>
+	
+					<%--入力不備 --%>
+					<c:if test="${empty param.f4}">
+					    <div class="mt-2 text-warning">
+					        学生番号を入力してください。
+					    </div>
+					</c:if>
 				</div>
-				
-				<%-- 絞込み実行ボタン --%>
-				<div class="col-2 text-center">
-					<button class="btn btn-secondary" id="filter-button" >検索</button>
-				</div>
-
-				<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-				<div class="mt-2 text-warning">${errors.get("f1") }</div>
-				
-			</form>
-
-
+			</form>	
 		</section>
+		
+		    科目：${subjectName}
+		<c:choose>
+			<c:when test="${empty tests}">
+			    <div class="text-danger">学生情報が存在しませんでした。</div>
+			</c:when>
+			<c:otherwise>
+				<table class="table">
+				    <thead>
+				        <tr>
+				            <th>入学年度</th>
+				            <th>クラス</th>
+				            <th>学生番号</th>
+				            <th>名前</th>
+				            <th>1回目</th>
+				            <th>2回目</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <c:forEach var="t" items="${tests}">
+				            <tr>
+				                <td>${t.entYear}</td>
+				                <td>${t.class_num}</td>
+				                <td>${t.student_no}</td>
+				                <td>${t.student_Name}</td>
+				                <td>${t.point1}</td>
+				                <td>${t.point2}</td>
+				            </tr>
+				        </c:forEach>
+				    </tbody>
+				</table>
+			</c:otherwise>
+		</c:choose>
+
 	</c:param>
 </c:import>
