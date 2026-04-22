@@ -15,7 +15,11 @@
 	<%-- メインコンテンツ部分の定義 --%>
 	<c:param name="content">
 		<section class="me=4">
+<<<<<<< HEAD
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績参照（学生）</h2>
+=======
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績一覧（学生）</h2>
+>>>>>>> branch 'master' of https://github.com/kiyo-b/Exam.git
 			
 			<%-- 新規登録画面へのリンク --%>
 			<div class="my-2 text-end px-4">
