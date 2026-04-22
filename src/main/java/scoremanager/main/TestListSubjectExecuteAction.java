@@ -104,6 +104,8 @@ public class TestListSubjectExecuteAction extends Action {
 		// 【変更】teacher.getSchool() を school に書き換え
 		// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
 		List<String> list = classNumDao.filter(school);
+		Subject sub = subjectDao.get(subjectCd);
+		
 		
 		List<Integer> countset = new ArrayList<>();
 		for (int i = 1; i<=2; i++) {
@@ -138,6 +140,7 @@ public class TestListSubjectExecuteAction extends Action {
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", subjectCd);
+		req.setAttribute("subjectName", sub.getName());
 		req.setAttribute("student_no", student_no);      // 検索された学生名簿
 		req.setAttribute("class_num_set", list);    // クラスの選択肢
 		req.setAttribute("ent_year_set", entYearSet); // 入学年度の選択肢

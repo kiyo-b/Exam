@@ -13,49 +13,6 @@ import bean.Test;
 public class TestDao extends Dao {
 
 	private String baseSql = "select * from test where school_cd = ? ";
-	private List<Test> postFilter(ResultSet resultSet) throws Exception {
-
-		// リストを初期化
-		List<Test> list = new ArrayList<>();
-		try {
-			// リザルトセットを全権走査
-			while (resultSet.next()) {
-				// 学生インスタンスを初期化
-				Test test = new Test();
-				// 学生インスタンスに検索結果をセット
-				test.setEntYear(resultSet.getInt("ent_year"));
-				test.setStudent_Name(resultSet.getString("student_name"));
-				test.setStudent_no(resultSet.getString("student_no"));
-//				test.setSubjectName(resultSet.getString("subject_name"));
-//				test.setSchool_cd(resultSet.getString("school_cd"));
-				Integer p1 = (Integer) resultSet.getObject("point1");
-				if (p1 != null) {
-					String str = String.valueOf(p1);
-				    test.setPoint1(str);
-				} else {
-				    test.setPoint1("-");
-				    
-				}
-
-				Integer p2 = (Integer) resultSet.getObject("point2");
-				if (p2 != null) {
-				    String str = String.valueOf(p2);
-				    test.setPoint2(str);
-				} else {
-				    test.setPoint2("-");
-				}
-				test.setClass_num(resultSet.getString("class_num"));
-
-				// リストに追加
-				list.add(test);
-			}
-		} catch (SQLException | NullPointerException e) {
-			throw e;
-//			e.printStackTrace();
-		}
-
-		return list;
-	}
 	private List<Test> TpostFilter(ResultSet resultSet) throws Exception {
 
 		// リストを初期化
@@ -69,7 +26,7 @@ public class TestDao extends Dao {
 				test.setEntYear(resultSet.getInt("ent_year"));
 				test.setStudent_Name(resultSet.getString("student_name"));
 				test.setStudent_no(resultSet.getString("student_no"));
-				test.setSubjectName(resultSet.getString("subject_name"));
+//				test.setSubject_cd(resultSet.getString("subject_cd"));
 //				test.setSchool_cd(resultSet.getString("school_cd"));
 				Integer p1 = (Integer) resultSet.getObject("point1");
 				if (p1 != null) {
@@ -119,7 +76,6 @@ public class TestDao extends Dao {
 //					入学年度、クラス、学生番号、名前、1回目、2回目のデータを抽出
 					"select s.ent_year, s.class_num, s.no as student_no, "
 					+ "s.name as student_name ,"
-					+ "sub.name as subject_name, "
 //					回数が1の時、科目が入力された値だったら
 					+ "max(case when t.no = 1 and t.subject_cd = ? then t.point end) as point1,"
 //					回数が2の時、科目が入力された値だったら
@@ -128,12 +84,10 @@ public class TestDao extends Dao {
 					+ "from student s left join test t "
 //					学生テーブルのとテストテーブルの学生番号と学校コードが一致
 					+ "on s.no = t.student_no and s.school_cd = t.school_cd "
-					+ "left join test t "
-					+ "on t.subject_cd = sub.cd "
 //					学校コードと入学年度とクラス番号が入力された値の時
 					+ "where s.school_cd = ? and s.ent_year = ? and s.class_num = ? "
 //					入学年度、クラス番号、学生番号、名前をグループにして
-					+ "group by s.ent_year, s.class_num, s.no, s.name, sub.name "
+					+ "group by s.ent_year, s.class_num, s.no, s.name "
 					+ "having "
 //					グループの検索条件
 //					1回目の点数がnullじゃないとき
@@ -160,7 +114,7 @@ public class TestDao extends Dao {
 
 
 			// リストへの格納処理を実行
-			list = postFilter(resultSet);
+			list = TpostFilter(resultSet);
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -301,7 +255,7 @@ public class TestDao extends Dao {
 			// プリペアードステートメントを実行
 			resultSet = statement.executeQuery();
 			// リストへの格納処理を実行
-			list = postFilter(resultSet);
+			list = TpostFilter(resultSet);
 		} catch (Exception e) {
 			throw e;
 		} finally {
