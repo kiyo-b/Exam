@@ -15,7 +15,7 @@
 	<%-- メインコンテンツ部分の定義 --%>
 	<c:param name="content">
 		<section class="me=4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績参照（科目）</h2>
 			
 			<%-- 新規登録画面へのリンク --%>
 			<div class="my-2 text-end px-4">
@@ -78,9 +78,9 @@
 					</div>
 
 					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-					<c:if test="${param.f1 == '0' or param.f2 == '0' or param.f3 == '0'}">
-					    <div class="mt-2 text-warning">
-					        入学年度とクラスと科目を選択してください。
+					<c:if test="${not empty errors}">
+					    <div class="mt-2 text-danger">
+					        ${errors.f1}
 					    </div>
 					</c:if>
 					

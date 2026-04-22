@@ -104,7 +104,12 @@ public class TestListSubjectExecuteAction extends Action {
 		// 【変更】teacher.getSchool() を school に書き換え
 		// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
 		List<String> list = classNumDao.filter(school);
-		Subject sub = subjectDao.get(subjectCd);
+		if (subjectCd != null && !subjectCd.equals("0")) {
+		    Subject sub = subjectDao.get(subjectCd);
+		    if (sub != null) {
+		        req.setAttribute("subjectName", sub.getName());
+		    }
+		}
 		
 		
 		List<Integer> countset = new ArrayList<>();
@@ -118,7 +123,7 @@ public class TestListSubjectExecuteAction extends Action {
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (entYear != 0 
 				&& classNum != null && !classNum.equals("0") 
-				&& subjectCd != null)
+				&& subjectCd != null && !subjectCd.equals("0"))
 		 {
 			// 入学年度とクラス番号を指定（例：2023年の1組）System.out.println("DAO呼び出し直前");
 			System.out.println("DAO呼び出し直前");
@@ -127,9 +132,8 @@ public class TestListSubjectExecuteAction extends Action {
 
 		} else {
 			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
-			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
+			errors.put("f1", "入学年度とクラスと科目を選択してください。");
 			req.setAttribute("errors", errors);
-//			tests = studentDao.filter(school, isAttend);
 		}
 		System.out.println("★★★ 実行されたAction ★★★");
 		// レスポンス値をセット 6
@@ -140,7 +144,6 @@ public class TestListSubjectExecuteAction extends Action {
 		req.setAttribute("f1", entYear);
 		req.setAttribute("f2", classNum);
 		req.setAttribute("f3", subjectCd);
-		req.setAttribute("subjectName", sub.getName());
 		req.setAttribute("student_no", student_no);      // 検索された学生名簿
 		req.setAttribute("class_num_set", list);    // クラスの選択肢
 		req.setAttribute("ent_year_set", entYearSet); // 入学年度の選択肢
