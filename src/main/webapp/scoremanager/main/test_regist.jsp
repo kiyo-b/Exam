@@ -23,7 +23,7 @@
 			</div>
 
 			<%-- 検索・絞り込みフォーム --%>
-			<form method="get" action="TestListSubjectAction">
+			<form method="get" >
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					
 					
@@ -54,17 +54,20 @@
 			    </select>
 			  </div>
 			
-			  <div class="col-2">
-			    <label class="form-label">科目</label>
-			    <select class="form-select" name="f3">
-			      <option value="0">--------</option>
-			      <c:forEach var="subject" items="${subject_set}">
-			        <option value="${subject}" <c:if test="${subject == f3}">selected</c:if>>
-			          ${subject}
-			        </option>
-			      </c:forEach>
-			    </select>
-			  </div>
+		<%-- 科目の選択プルダウン --%>
+			<div class="col-4">
+				<label class="form-label" for="student-f3-select">科目</label>
+				<select class="form-select" id="student-f3-select" name="f3">
+					<option value="0">--------</option>
+					<%-- Actionから渡された testcount_set（クラス一覧）をループで回す --%>
+					<c:forEach var="sub" items="${subject_set }">
+						<%-- 検索後の再表示時、選択していたクラスを保持（selected）する --%>
+						<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
+					</c:forEach>
+				</select>
+				${f3}
+				${sub.cd}
+			</div>
 			
 			  <div class="col-2">
 			    <label class="form-label">回数</label>
@@ -81,7 +84,7 @@
 
 					<%-- 絞込み実行ボタン --%>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" formaction="TestRegistAction.action">検索</button>
+						<button class="btn btn-secondary" id="filter-button" formaction="TestRegistExecute.action">検索</button>
 					</div>
 
 

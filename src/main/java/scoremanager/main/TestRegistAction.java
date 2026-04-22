@@ -100,16 +100,12 @@ public class TestRegistAction extends Action {
 		// ビジネスロジック 4
 
 		// 受け取った値を「プログラムで計算・判定しやすい形」に整えます
-
+// ★入学年度
 		if (entYearStr != null && !entYearStr.isEmpty()) { // 空文字チェックを追加
 			entYear = Integer.parseInt(entYearStr); // 文字列を数字に変換
 
 		}
 
-		if (countStr !=null && !countStr.isEmpty()) {// 空文字チェックを追加
-			testcount = Integer.parseInt(countStr); //文字列を数字に変換 
-
-		}
 
 //	☆入学年度を表示するために必要（変更なし）
 
@@ -129,35 +125,20 @@ public class TestRegistAction extends Action {
 		// 【変更】teacher.getSchool() を school に書き換え
 
 		// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
-
 		List<String> list = classNumDao.filter(school);
-		List<Test> clist = testDao.filter(school);
+		
+
+//		科目
 		List<Subject> slist = subjectDao.filter(school);
  
-		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 
-		if (entYear != 0 
-		&& classNum != null && !classNum.equals("0") 
-		&& subject != null && !subject.equals("0")
-		&& testcount !=0
 
-		) {
-
-			// 入学年度とクラス番号を指定（例：2023年の1組）
-
-			tests = testDao.filter(school, entYear, classNum, subject);
- 
-		} else {
-
-			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
-
-			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-
-			req.setAttribute("errors", errors);
-
-//			tests = studentDao.filter(school, isAttend);
-
+		// ★回数
+		List<Integer> countset = new ArrayList<>();
+		for (int i = 1; i<=2; i++) {
+			countset.add(i);
 		}
+
  
 		// レスポンス値をセット 6
 
@@ -165,15 +146,16 @@ public class TestRegistAction extends Action {
 
 //		検索結果を表示するための検索後結果
 
-		req.setAttribute("tests", tests);
 
 //		検索条件を表示するために必要なデータ
 
 		req.setAttribute("f1", entYear);
 
 		req.setAttribute("f2", classNum);
+		
+		req.setAttribute("f3", subject);
 
-		req.setAttribute("student_no", student_no);      // 検索された学生名簿
+		req.setAttribute("f4", countStr);
 
 		req.setAttribute("class_num_set", list);    // クラスの選択肢
 
@@ -181,7 +163,7 @@ public class TestRegistAction extends Action {
 
 		req.setAttribute("subject_set", slist); // 科目の選択肢
 
-		req.setAttribute("testcount_set", clist); // 回数の選択肢
+		req.setAttribute("testcount_set", countset); // 回数の選択肢
  
 		// JSPへフォワード 7
 
