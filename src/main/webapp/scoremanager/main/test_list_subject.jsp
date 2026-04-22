@@ -111,6 +111,9 @@
 				</div>
 			</form>	
 		</section>
+		<c:if test="${not empty tests}">
+		    科目：${tests[0].subject_name}
+		</c:if>
 		<c:choose>
 			<c:when test="${empty tests}">
 			    <div class="text-danger">学生情報が存在しませんでした。</div>
