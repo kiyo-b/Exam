@@ -334,4 +334,24 @@ public class StudentDao extends Dao {
 			return false;
 		}
 	}
-}
+	public void update(Student student) {
+	    String sql = "UPDATE student SET name = ?, class_num = ?, is_attend = ? "+ "WHERE ent_year = ? AND no = ?";
+	
+	    try (Connection con = ds.getConnection();
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+	
+	        stmt.setString(1, student.getName());
+	        stmt.setString(2, student.getClassNum());
+	        stmt.setBoolean(3, student.isAttend());
+	        stmt.setInt(4, student.getEntYear());
+	        stmt.setString(5, student.getNo());
+	
+	        stmt.executeUpdate();
+	
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    }
+	}
+	}
+
+
