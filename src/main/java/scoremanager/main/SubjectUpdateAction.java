@@ -19,47 +19,28 @@ public class SubjectUpdateAction extends Action {
         // JSP から受け取る値
         String cd = req.getParameter("cd");
         String name = req.getParameter("name");
+        
+        SubjectDao dao = new SubjectDao();
 
-//        boolean hasError = false;
-//
-//        // --- 入力チェック ---
-//
-//        // 科目コード未入力
-//        if (cd == null || cd.isEmpty()) {
-//            req.setAttribute("cdError", "科目コードを入力してください");
-//            hasError = true;
-//        }
-//        // 科目コード文字数チェック
-//        else if (cd.length() != 2) {
-//            req.setAttribute("cdError", "科目コードは2文字で入力してください");
-//            hasError = true;
-//        }
-//        // 科目コード重複チェック
-//        else {
-//            SubjectDao dao = new SubjectDao();
-//            Subject subject = dao.get(cd, school);
-//
-//            if (subject != null) {
-//                req.setAttribute("cdError", "科目コードが重複しています");
-//                hasError = true;
-//            }
-//        }
-//
-//        // 科目名未入力
-//        if (name == null || name.isEmpty()) {
-//            req.setAttribute("nameError", "科目名を入力してください");
-//            hasError = true;
-//        }
+        boolean hasError = false;
 
+        // --- 入力チェック ---
+		Subject dbSubject = dao.get(cd, school);
+        // 科目コード未入力
+        if (dbSubject == null) {
+            req.setAttribute("cdError", "科目が存在していません");
+            hasError = true;
+        }
+       
         // 入力値を JSP に戻す
         req.setAttribute("cd", cd);
         req.setAttribute("name", name);
 
-//        // エラーがある場合は登録画面へ戻す
-//        if (hasError) {
-//            req.getRequestDispatcher("subject_create.jsp").forward(req, res);
-//            return;
-//        }
+        // エラーがある場合は登録画面へ戻す
+        if (hasError) {
+            req.getRequestDispatcher("subject_create.jsp").forward(req, res);
+            return;
+        }
 
         // --- 登録処理 ---
         Subject subject = new Subject();
@@ -67,7 +48,7 @@ public class SubjectUpdateAction extends Action {
         subject.setName(name);
         subject.setSchool(school);
 
-        SubjectDao dao = new SubjectDao();
+        
         dao.update(subject);
 
         // 完了画面へ
