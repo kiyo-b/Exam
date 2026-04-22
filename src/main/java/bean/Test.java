@@ -18,13 +18,17 @@ public class Test implements Serializable {
 	 */
 	private String subject_cd;
 	
+	private String subject_name;
+	
 	private String school_cd;
 	
 	private int no;
 	
-	private int point1;
+	private String point1;
 	
-	private int point2;
+	private String point2;
+	
+	private String point;
 	
 	private String class_num;
 
@@ -55,12 +59,20 @@ public class Test implements Serializable {
 		this.student_name = student_name;
 	}
 
-	public String getSubject_cd() {
+	public String getSubjectCd() {
 		return subject_cd;
 	}
 
-	public void setSubject_cd(String subject_cd) {
+	public void setSubjectCd(String subject_cd) {
 		this.subject_cd = subject_cd;
+	}
+	
+	public String getSubjectName() {
+		return subject_name;
+	}
+
+	public void setSubjectName(String subject_name) {
+		this.subject_name = subject_name;
 	}
 	
 	public String getSchool_cd() {
@@ -79,19 +91,19 @@ public class Test implements Serializable {
 		this.no = no;
 	}
 	
-	public int getPoint1() {
+	public String getPoint1() {
 		return point1;
 	}
 
-	public void setPoint1(int point1) {
+	public void setPoint1(String point1) {
 		this.point1 = point1;
 	}
 	
-	public int getPoint2() {
+	public String getPoint2() {
 		return point2;
 	}
 
-	public void setPoint2(int point2) {
+	public void setPoint2(String point2) {
 		this.point2 = point2;
 	}
 	
@@ -101,5 +113,13 @@ public class Test implements Serializable {
 
 	public void setClass_num(String class_num) {
 		this.class_num = class_num;
+	}
+	
+	public String getPoint() {
+		return point;
+	}
+
+	public void setPoint(String point) {
+		this.point = point;
 	}
 }
