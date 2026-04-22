@@ -1,6 +1,6 @@
 <%-- 
     学生一覧表示画面
-    機能：入学年度、クラス、在学状況での絞り込みと、該当する学生の一覧表示
+    該当する学生の一覧表示
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
@@ -15,7 +15,8 @@
 	<%-- メインコンテンツ部分の定義 --%>
 	<c:param name="content">
 		<section class="me=4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績参照（学生）</h2>
+
 			
 			<%-- 新規登録画面へのリンク --%>
 			<div class="my-2 text-end px-4">
@@ -103,42 +104,43 @@
 					</div>
 	
 					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-					<c:if test="${empty param.f4}">
+					<c:if test="${pageContext.request.servletPath == '/scoremanager/main/TestListStudentExecute.action' and empty param.f4}">
 					    <div class="mt-2 text-warning">
 					        学生番号を入力してください。
 					    </div>
 					</c:if>
 				</div>
 			</form>
-
-
 		</section>
-			<table class="table">
-				<c:if test="${empty tests}">
-				    <div class="text-danger">データがありません</div>
-				</c:if>
-			    <thead>
-			        <tr>
-			            <th>入学年度</th>
-			            <th>クラス</th>
-			            <th>学生番号</th>
-			            <th>名前</th>
-			            <th>1回目</th>
-			            <th>2回目</th>
-			        </tr>
-			    </thead>
-			    <tbody>
-			        <c:forEach var="t" items="${tests}">
-			            <tr>
-			                <td>${t.entYear}</td>
-			                <td>${t.class_num}</td>
-			                <td>${t.student_no}</td>
-			                <td>${t.student_Name}</td>
-			                <td>${t.point1}</td>
-			                <td>${t.point2}</td>
-			            </tr>
-			        </c:forEach>
-			    </tbody>
-			</table>
+		<c:if test="${not empty tests}">
+		    氏名：${tests[0].student_Name}(${tests[0].student_no})
+		</c:if>
+		<c:choose>
+			<c:when test="${empty tests}">
+			    <div class="text-danger">学生情報が存在しませんでした。</div>
+			</c:when>
+			<c:otherwise>
+				<table class="table">
+				    <thead>
+				        <tr>
+				            <th>科目名</th>
+				            <th>科目コード</th>
+				            <th>回数</th>
+				            <th>点数</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <c:forEach var="t" items="${tests}">
+				            <tr>
+				                <td>${t.subjectName}</td>
+				                <td>${t.subjectCd}</td>
+				                <td>${t.no}</td>
+				                <td>${t.point}</td>
+				            </tr>
+				        </c:forEach>
+				    </tbody>
+				</table>
+			</c:otherwise>
+		</c:choose>
 	</c:param>
 </c:import>
