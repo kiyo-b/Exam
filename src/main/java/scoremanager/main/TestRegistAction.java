@@ -21,7 +21,6 @@ import tool.Action;
 public class TestRegistAction extends Action {
  
 	@Override
-
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
  
 		// HttpSession session = req.getSession(); // コメントアウト
@@ -30,39 +29,29 @@ public class TestRegistAction extends Action {
  
 		// 【代わりの処理】ログイン情報の代わりに、仮の学校情報を設定
 
-		// 本来はログインした先生の学校を使いますが、今回はテスト用に「oom」校として動かします
+		// 本来はログインした先生の学校を使い  ますが、今回はテスト用に「oom」校として動かします
 
 		School school = new School();
-
 		school.setCd("tes"); // お使いのテストデータに合わせた学校コードを指定してください
  
 		// ローカル変数の指定 1
 
 		// 画面から送られてくる検索条件や、DBから取ってきたデータを入れるための「箱」を準備します
 
-		
 // 入力値が入る
 
 		String entYearStr = ""; 
-
 		String classNum = "";
-
 		String subject = ""; 
-
 		String countStr = "";
-
 		String student_no = "";
-
 		String student_name = "";
-
 		String subjectSet = "";
- 
 		
 
 // 型変換などで変数を変える時　String→int
 
 		int entYear = 0; 
-
 		int testcount = 0;
  
 // 学生情報を格納するリスト
@@ -72,33 +61,26 @@ public class TestRegistAction extends Action {
 // 入学年度を10年分にするためにいまの年度を取得
 
 		LocalDate todaysDate = LocalDate.now(); 
-
 		int year = todaysDate.getYear(); 
 
 // インスタンス化
 
 //		学校情報を取得するため
-
 		SchoolDao schoolDao = new SchoolDao();
 
 //		科目情報を取得するため
-
 		SubjectDao subjectDao = new SubjectDao();
 
 //		学生情報を取得するため
-
 		StudentDao studentDao = new StudentDao();
 
 //		クラス情報を取得するため
-
 		ClassNumDao classNumDao = new ClassNumDao();
 
 //		テスト情報を取得するため
-
 		TestDao testDao = new TestDao();
 
 //		エラー表示するため
-
 		Map<String, String> errors = new HashMap<>(); 
 
  
@@ -107,19 +89,12 @@ public class TestRegistAction extends Action {
 		// 画面の入力フォーム（f1=入学年度, f2=クラス, f3=科目, f4=回数）に書かれた値を受け取ります
 
 //		入学年度
-
 		entYearStr = req.getParameter("f1");
-
 //		クラス
-
 		classNum = req.getParameter("f2");
-
 //		科目
-
 		subject = req.getParameter("f3");
-
 //		回数
-
 		countStr = req.getParameter("f4");		
 
 		// ビジネスロジック 4
@@ -127,13 +102,11 @@ public class TestRegistAction extends Action {
 		// 受け取った値を「プログラムで計算・判定しやすい形」に整えます
 
 		if (entYearStr != null && !entYearStr.isEmpty()) { // 空文字チェックを追加
-
 			entYear = Integer.parseInt(entYearStr); // 文字列を数字に変換
 
 		}
 
 		if (countStr !=null && !countStr.isEmpty()) {// 空文字チェックを追加
-
 			testcount = Integer.parseInt(countStr); //文字列を数字に変換 
 
 		}
@@ -143,9 +116,7 @@ public class TestRegistAction extends Action {
 		// 画面のプルダウン（入学年度の選択肢）を作るために、今年から10年前までの数字をリストにします
 
 		List<Integer> entYearSet = new ArrayList<>();
-
 		for (int i = year - 10; i <= year; i++) { // 10年前から今年まで
-
 			entYearSet.add(i);
 
 		}
@@ -160,17 +131,15 @@ public class TestRegistAction extends Action {
 		// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
 
 		List<String> list = classNumDao.filter(school);
-
 		List<Test> clist = testDao.filter(school);
-
 		List<Subject> slist = subjectDao.filter(school);
  
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 
 		if (entYear != 0 
-&& classNum != null && !classNum.equals("0") 
-&& subject != null && !subject.equals("0")
-&& testcount !=0
+		&& classNum != null && !classNum.equals("0") 
+		&& subject != null && !subject.equals("0")
+		&& testcount !=0
 
 		) {
 
