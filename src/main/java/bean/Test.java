@@ -28,7 +28,7 @@ public class Test implements Serializable {
 	
 	private String point2;
 	
-	private String point;
+	private int point;
 	
 	private String class_num;
 
@@ -115,11 +115,11 @@ public class Test implements Serializable {
 		this.class_num = class_num;
 	}
 	
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 }

@@ -57,7 +57,7 @@ public class TestDao extends Dao {
 		return list;
 	}
 
-//	☆入学年度、クラス、科目、回数を引数としてDBから検索するフィルター
+//	☆入学年度、クラス、科目を引数としてDBから検索するフィルター
 	public List<Test> filter(School school, Integer entYear, String classNum, String subject ) throws Exception {
 		
 		// リストを初期化
@@ -188,7 +188,7 @@ public class TestDao extends Dao {
 			    t.setSubjectName(resultSet.getString("subject_name"));
 			    t.setSubjectCd(resultSet.getString("subject_cd"));
 			    t.setNo(resultSet.getInt("no"));
-			    t.setPoint(resultSet.getString("point"));
+			    t.setPoint((Integer) resultSet.getObject("point"));
 			    list.add(t);
 			}
 			
@@ -280,7 +280,82 @@ public class TestDao extends Dao {
 		return list;
 	}
 
+//	☆入学年度、クラス、科目を引数としてDBから検索するフィルター
+	public List<Test> filter(School school, Integer entYear, String classNum, String subject, int no) throws Exception {
 
+	    List<Test> list = new ArrayList<>();
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+
+	    try {
+	        statement = connection.prepareStatement(
+	            "SELECT "
+	          + "s.ent_year, "
+	          + "s.class_num, "
+	          + "s.no AS student_no, "
+	          + "s.name, "
+	          + "t.point "
+	          + "FROM student s "
+	          + "LEFT JOIN test t "
+	          + "ON s.no = t.student_no "
+	          + "AND s.school_cd = t.school_cd "
+	          + "AND s.class_num = t.class_num "
+	          + "AND t.subject_cd = ? "
+	          + "AND t.no = ? "
+	          + "WHERE s.school_cd = ? "
+	          + "AND s.ent_year = ? "
+	          + "AND s.class_num = ? "
+	          + "AND s.is_attend = true "
+	          + "ORDER BY s.no"
+	        );
+
+	        // ✅ 正しい順番
+	        statement.setString(1, subject);          // 科目
+	        statement.setInt(2, no);                  // 回数
+	        statement.setString(3, school.getCd());   // 学校コード
+	        statement.setInt(4, entYear);             // 入学年度
+	        statement.setString(5, classNum);         // クラス
+
+	        resultSet = statement.executeQuery();
+
+	        // ✅ ここでlistに詰める（TpostFilter使わないなら）
+	        while (resultSet.next()) {
+	            Test test = new Test();
+
+	            test.setEntYear(resultSet.getInt("ent_year"));
+	            test.setClass_num(resultSet.getString("class_num"));
+	            test.setStudent_no(resultSet.getString("student_no"));
+	            test.setStudent_Name(resultSet.getString("name"));
+	            test.setPoint((Integer) resultSet.getObject("point"));// NULL対応
+
+	            list.add(test);
+	        }
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// プリペアードステートメントを閉じる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			// コネクションを閉じる
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+
+		return list;
+	}
+    
+	
 	
 	// 	public boolean save(Test test) throws Exception {
 
