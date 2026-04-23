@@ -56,7 +56,7 @@ public class TestRegistAction extends Action {
  
 // 学生情報を格納するリスト
 
-		List<Test> tests = null; 
+		List<Test> tests = new ArrayList<>(); 
 
 // 入学年度を10年分にするためにいまの年度を取得
 
@@ -82,6 +82,34 @@ public class TestRegistAction extends Action {
 
 //		エラー表示するため
 		Map<String, String> errors = new HashMap<>(); 
+		
+		
+//		☆入学年度を表示するために必要（変更なし）
+
+			// 画面のプルダウン（入学年度の選択肢）を作るために、今年から10年前までの数字をリストにします
+
+			List<Integer> entYearSet = new ArrayList<>();
+			for (int i = year - 10; i <= year; i++) { // 10年前から今年まで
+				entYearSet.add(i);
+
+			}
+
+	//  ☆ここまで
+			// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
+			List<String> list = classNumDao.filter(school);
+			
+
+//			科目
+			List<Subject> slist = subjectDao.filter(school);
+	 
+
+
+			// ★回数
+			List<Integer> countset = new ArrayList<>();
+			for (int i = 1; i<=2; i++) {
+				countset.add(i);
+			}
+
 
  
 		// リクエストパラメーターの取得 2
@@ -107,37 +135,26 @@ public class TestRegistAction extends Action {
 		}
 
 
-//	☆入学年度を表示するために必要（変更なし）
-
-		// 画面のプルダウン（入学年度の選択肢）を作るために、今年から10年前までの数字をリストにします
-
-		List<Integer> entYearSet = new ArrayList<>();
-		for (int i = year - 10; i <= year; i++) { // 10年前から今年まで
-			entYearSet.add(i);
-
-		}
-
-//  ☆ここまで
-
+//		入学年度が------（0）以外
+		if (entYear != 0 
+//				クラスが選択されているか
+			    && classNum != null && !classNum.equals("0")
+//			    科目が選択されているか
+			    && subject != null && !subject.equals("0")
+//			    回数が選択されているか
+			    && countStr != null && !countStr.equals("0")
+			) {
+//			条件を満たしているなら
+//			countをint型に変更
+			testcount = Integer.parseInt(countStr);
+//			filterを実行
+		    tests = testDao.filter(school, entYear, classNum, subject, testcount);
+			}
 
 		// DBからデータ取得 3
 
 		// 【変更】teacher.getSchool() を school に書き換え
 
-		// その学校に登録されているクラス番号（A組、B組など）の一覧をDBから取ってきます
-		List<String> list = classNumDao.filter(school);
-		
-
-//		科目
-		List<Subject> slist = subjectDao.filter(school);
- 
-
-
-		// ★回数
-		List<Integer> countset = new ArrayList<>();
-		for (int i = 1; i<=2; i++) {
-			countset.add(i);
-		}
 
  
 		// レスポンス値をセット 6
@@ -148,6 +165,7 @@ public class TestRegistAction extends Action {
 
 
 //		検索条件を表示するために必要なデータ
+		req.setAttribute("tests", tests);
 
 		req.setAttribute("f1", entYear);
 
