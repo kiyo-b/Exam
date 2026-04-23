@@ -280,7 +280,7 @@ public class TestDao extends Dao {
 		return list;
 	}
 
-//	☆入学年度、クラス、科目を引数としてDBから検索するフィルター
+//	☆入学年度、クラス、科目、回数を引数としてDBから検索するフィルター
 	public List<Test> filter(School school, Integer entYear, String classNum, String subject, int no) throws Exception {
 
 	    List<Test> list = new ArrayList<>();
