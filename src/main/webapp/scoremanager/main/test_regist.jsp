@@ -65,10 +65,9 @@
 						<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
 					</c:forEach>
 				</select>
-				${f3}
-				${sub.cd}
 			</div>
 			
+		<%-- 回数の選択プルダウン --%>
 			  <div class="col-2">
 			    <label class="form-label">回数</label>
 			    <select class="form-select" name="f4">
@@ -84,7 +83,7 @@
 
 					<%-- 絞込み実行ボタン --%>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" formaction="TestRegistExecute.action">検索</button>
+						<button class="btn btn-secondary" id="filter-button" formaction="TestRegist.action">検索</button>
 					</div>
 
 
@@ -92,5 +91,43 @@
 
 
 		</section>
+		科目：${subjectName}
+		<c:choose>
+			<c:when test="${empty tests}">
+			    <div class="text-danger"></div>
+			</c:when>
+			<c:otherwise>
+				<form>
+					<table class="table">
+					    <thead>
+					        <tr>
+					            <th>入学年度</th>
+					            <th>クラス</th>
+					            <th>学生番号</th>
+					            <th>氏名</th>
+					            <th>点数</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <c:forEach var="t" items="${tests}">
+					            <tr>
+					                <td>${t.entYear}</td>
+					                <td>${t.class_num}</td>
+					                <td>${t.student_no}
+	    								<input type="hidden" name="student_no[]" value="${t.student_no}" /></td>
+					                <td>${t.student_Name}</td>
+					                <td><input type="text" name="point[]" value="${t.point }"></td>
+					            </tr>
+					        </c:forEach>
+					    </tbody>				    
+					</table>
+					 <%-- 絞込み実行ボタン --%>
+					<div class="col-2 text-center">
+						<button class="btn btn-secondary" id="filter-button" formaction="TestRegistExecute.action">登録</button>
+					</div>
+				</form>
+			</c:otherwise>
+		</c:choose>
+		
 	</c:param>
 </c:import>
