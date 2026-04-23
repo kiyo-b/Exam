@@ -19,7 +19,6 @@
 			<div class="my-2 text-end px-4">
 				<a href="subject_create.jsp">新規登録</a>
 			</div>
-
 			<!-- 科目一覧 -->
 			<table class="table table-hover">
 				<tr>
@@ -34,9 +33,10 @@
 						<td>${subject.cd}</td>
 						<td>${subject.name}</td>
 						<td><a href="subject_update.jsp">変更</a></td>
-						<td><a
-							href="subject_delete.jsp?cd=${subject.cd}&name=${subject.name}">
-								削除 </a></td>
+						<td>< c:url var="deleteUrl" value="subject_delete.jsp"> <c:param
+								name="cd" value="${subject.cd}" /> <c:param name="name"
+								value="${subject.name}" /> </c:url> <a href="${deleteUrl}">削除</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
