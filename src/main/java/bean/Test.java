@@ -115,7 +115,7 @@ public class Test implements Serializable {
 		this.class_num = class_num;
 	}
 	
-	public int getPoint() {
+	public Integer getPoint() {
 		return point;
 	}
 

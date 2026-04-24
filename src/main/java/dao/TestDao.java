@@ -359,7 +359,55 @@ public class TestDao extends Dao {
 		return list;
 	}
     
+
+	//	点数を更新
+	public void save(School school, String student_no, String class_num, String subject, int no, int point) throws Exception {
 	
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	
+	    try {
+	        System.out.println("sqlをセット");
+		    statement = connection.prepareStatement(
+	            "update test set point = ? where student_no = ? and subject_cd = ? and school_cd = ? and no = ? and class_num = ?"
+	            );
+	
+	        // パラメータ順
+	        statement.setInt(1, point);
+	        statement.setString(2, student_no);
+	        statement.setString(3, subject);
+	        statement.setString(4, school.getCd());
+	        statement.setInt(5, no); 
+	        statement.setString(6, class_num);
+	        
+	        System.out.println("SQL実行前");
+	        int count = statement.executeUpdate();
+	        System.out.println("更新件数: " + count);
+	        System.out.println(statement);
+	        System.out.println("SQL実行後");
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        // プリペアードステートメントを閉じる
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	        // コネクションを閉じる
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
+
+	}
+
 	
 	// 	public boolean save(Test test) throws Exception {
 

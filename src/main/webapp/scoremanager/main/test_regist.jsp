@@ -110,12 +110,15 @@
 					            <tr>
 					                <td>${t.entYear}</td>
 					                <td>${t.class_num}</td>
+    								<input type="hidden" name="class_num[]" value="${t.class_num}" />
 					                <%-- 学生番号を引数にする --%>
 					                <td>${t.student_no}
 	    								<input type="hidden" name="student_no[]" value="${t.student_no}" /></td>
 					                <td>${t.student_Name}</td>
 					                <%-- 変更後の点数を引数にする --%>
-					                <td><input type="text" name="point[]" value="${t.point }"></td>
+					                <td><input type="text" name="point[]" value="${t.point != null ? t.point : ''}"></td>
+					                <input type="hidden" name="no[]" value="${f4}" />
+					                <input type="hidden" name="subject[]" value="${f3}" />
 					            </tr>
 					        </c:forEach>
 					    </tbody>				    
