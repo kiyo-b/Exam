@@ -286,50 +286,32 @@ public class TestDao extends Dao {
 	    List<Test> list = new ArrayList<>();
 	    Connection connection = getConnection();
 	    PreparedStatement statement = null;
-	    ResultSet resultSet = null;
+	    ResultSet rs = null;
 
 	    try {
 	        statement = connection.prepareStatement(
-	            "SELECT "
-	          + "s.ent_year, "
-	          + "s.class_num, "
-	          + "s.no AS student_no, "
-	          + "s.name, "
-	          + "t.point "
-	          + "FROM student s "
-	          + "LEFT JOIN test t "
-	          + "ON s.no = t.student_no "
-	          + "AND s.school_cd = t.school_cd "
-	          + "AND s.class_num = t.class_num "
-	          + "AND t.subject_cd = ? "
-	          + "AND t.no = ? "
-	          + "WHERE s.school_cd = ? "
-	          + "AND s.ent_year = ? "
-	          + "AND s.class_num = ? "
-	          + "AND s.is_attend = true "
-	          + "ORDER BY s.no"
+	        		"select s.ent_year, s.class_num, s.student_no, t.point "
+	        		+ "from student as s "
+	        		+ "left join test as t on s.student_no = t.student_no and s.class_num = t.class_num and s.school_cd = t.school_cd and t.no = ? "
+	        		+ "where s.school_cd = ? t.subject = ? and s.class_num = ?"
 	        );
 
-	        // ✅ 正しい順番
-	        statement.setString(1, subject);          // 科目
-	        statement.setInt(2, no);                  // 回数
-	        statement.setString(3, school.getCd());   // 学校コード
-	        statement.setInt(4, entYear);             // 入学年度
-	        statement.setString(5, classNum);         // クラス
+	        statement.setString(1, school.getCd());
+	        statement.setString(2, subject);
+	        statement.setString(3, classNum);
 
-	        resultSet = statement.executeQuery();
+	        rs = statement.executeQuery();
 
 	        // ✅ ここでlistに詰める（TpostFilter使わないなら）
-	        while (resultSet.next()) {
-	            Test test = new Test();
+	        while (rs.next()) {
+	            Test t = new Test();
 
-	            test.setEntYear(resultSet.getInt("ent_year"));
-	            test.setClass_num(resultSet.getString("class_num"));
-	            test.setStudent_no(resultSet.getString("student_no"));
-	            test.setStudent_Name(resultSet.getString("name"));
-	            test.setPoint((Integer) resultSet.getObject("point"));// NULL対応
-
-	            list.add(test);
+	            t.setEntYear(rs.getInt("ent_year"));
+	            t.setClass_num(rs.getString("class_num"));
+	            t.setStudent_no(rs.getString("student_no"));
+	            t.setStudent_Name(rs.getString("name"));
+	            t.setPoint((Integer)rs.getObject("point"));
+	            list.add(t);
 	        }
 		} catch (Exception e) {
 			throw e;
