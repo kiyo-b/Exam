@@ -49,6 +49,9 @@ public class StudentUpdateAction extends Action {
             req.setAttribute("f3", student.getName());
             req.setAttribute("f4", student.getClassNum());
 
+            // ★ 在学中を JSP に渡す（これが無いと常に checked になる）
+            req.setAttribute("attend", student.isAttend());
+
             req.getRequestDispatcher("student_update.jsp").forward(req, res);
             return;
         }
@@ -61,11 +64,15 @@ public class StudentUpdateAction extends Action {
         String name = req.getParameter("f3");
         String classNum = req.getParameter("f4");
 
+        // ★ チェックボックスの値を正しく取得
+        boolean attend = "true".equals(req.getParameter("isAttend"));
+
         // 入力保持（エラー時も表示される）
         req.setAttribute("f1", entYearStr);
         req.setAttribute("f2", no);
         req.setAttribute("f3", name);
         req.setAttribute("f4", classNum);
+        req.setAttribute("attend", attend);
 
         // バリデーション
         if (name == null || name.isEmpty()) {
@@ -88,7 +95,7 @@ public class StudentUpdateAction extends Action {
         student.setNo(no);
         student.setName(name);
         student.setClassNum(classNum);
-        student.setAttend(true);
+        student.setAttend(attend);  // ★ 修正：POST の値を反映
         student.setSchool(school);
 
         // 更新処理
