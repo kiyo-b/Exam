@@ -114,6 +114,7 @@
 
 		</section>
 			<table class="table">
+			<div>検索結果：${tests.size() }件</div>
 				<c:if test="${empty tests}">
 				    <div class="text-danger">データがありません</div>
 				</c:if>

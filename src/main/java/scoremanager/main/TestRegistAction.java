@@ -22,7 +22,7 @@ public class TestRegistAction extends Action {
  
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
- 
+		System.out.println("★★★ Action開始 ★★★");
 		// HttpSession session = req.getSession(); // コメントアウト
 
 		// Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
@@ -52,7 +52,7 @@ public class TestRegistAction extends Action {
 // 型変換などで変数を変える時　String→int
 
 		int entYear = 0; 
-		int testcount = 0;
+		int no = 0;
  
 // 学生情報を格納するリスト
 
@@ -123,7 +123,8 @@ public class TestRegistAction extends Action {
 //		科目
 		subject = req.getParameter("f3");
 //		回数
-		countStr = req.getParameter("f4");		
+		countStr = req.getParameter("f4");	
+		
 
 		// ビジネスロジック 4
 
@@ -133,8 +134,14 @@ public class TestRegistAction extends Action {
 			entYear = Integer.parseInt(entYearStr); // 文字列を数字に変換
 
 		}
-
-
+		System.out.println("entYear=" + entYear);
+		System.out.println("classNum=" + classNum);
+		System.out.println("subject=" + subject);
+		System.out.println("countStr=" + countStr);
+		System.out.println("entYear != 0 → " + (entYear != 0));
+		System.out.println("classNum OK → " + (classNum != null && !classNum.equals("0")));
+		System.out.println("subject OK → " + (subject != null && !subject.equals("0")));
+		System.out.println("countStr OK → " + (countStr != null && !countStr.equals("0")));
 //		入学年度が------（0）以外
 		if (entYear != 0 
 //				クラスが選択されているか
@@ -146,10 +153,11 @@ public class TestRegistAction extends Action {
 			) {
 //			条件を満たしているなら
 //			countをint型に変更
-			testcount = Integer.parseInt(countStr);
+			no = Integer.parseInt(countStr);
+			System.out.println("countStr=" + countStr);
 //			filterを実行
-		    tests = testDao.filter(school, entYear, classNum, subject, testcount);
-			}
+		    tests = testDao.filter(school, entYear, classNum, subject, no);
+		    }
 
 		// DBからデータ取得 3
 

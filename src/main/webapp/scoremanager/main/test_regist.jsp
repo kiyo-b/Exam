@@ -14,16 +14,13 @@
 
 	<%-- メインコンテンツ部分の定義 --%>
 	<c:param name="content">
-		<section class="me=4">
+		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 			
-			<%-- 新規登録画面へのリンク --%>
-			<div class="my-2 text-end px-4">
-				<a href="StudentCreate.action">新規登録</a>
-			</div>
+
 
 			<%-- 検索・絞り込みフォーム --%>
-			<form method="get" >
+			<form method="get" action="TestRegist.action" >
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					
 					
@@ -81,10 +78,10 @@
 			  </div>
 
 
-					<%-- 絞込み実行ボタン --%>
-					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" formaction="TestRegist.action">検索</button>
-					</div>
+				<%-- 絞込み実行ボタン --%>
+				<div class="col-2 text-center">
+					<button type="submit" class="btn btn-secondary" id="filter-button" >検索</button>
+				</div>
 
 
 			</form>
@@ -97,7 +94,7 @@
 			    <div class="text-danger"></div>
 			</c:when>
 			<c:otherwise>
-				<form>
+				<form method = "get" action="TestRegistExecute.action">
 					<table class="table">
 					    <thead>
 					        <tr>
@@ -123,7 +120,7 @@
 					</table>
 					 <%-- 絞込み実行ボタン --%>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" formaction="TestRegistExecute.action">登録</button>
+						<button class="btn btn-secondary" id="filter-button" >登録</button>
 					</div>
 				</form>
 			</c:otherwise>

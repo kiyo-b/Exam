@@ -28,7 +28,7 @@ public class Test implements Serializable {
 	
 	private String point2;
 	
-	private int point;
+	private Integer point;
 	
 	private String class_num;
 
@@ -119,7 +119,7 @@ public class Test implements Serializable {
 		return point;
 	}
 
-	public void setPoint(int point) {
+	public void setPoint(Integer point) {
 		this.point = point;
 	}
 }

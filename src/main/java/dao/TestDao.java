@@ -289,49 +289,53 @@ public class TestDao extends Dao {
 	    ResultSet resultSet = null;
 
 	    try {
-	        statement = connection.prepareStatement(
-	            "SELECT "
-	          + "s.ent_year, "
-	          + "s.class_num, "
-	          + "s.no AS student_no, "
-	          + "s.name, "
-	          + "t.point "
-	          + "FROM student s "
-	          + "LEFT JOIN test t "
-	          + "ON s.no = t.student_no "
-	          + "AND s.school_cd = t.school_cd "
-	          + "AND s.class_num = t.class_num "
-	          + "AND t.subject_cd = ? "
-	          + "AND t.no = ? "
-	          + "WHERE s.school_cd = ? "
-	          + "AND s.ent_year = ? "
-	          + "AND s.class_num = ? "
-	          + "AND s.is_attend = true "
-	          + "ORDER BY s.no"
-	        );
+	    	System.out.println("sqlをセット");
+	    	statement = connection.prepareStatement(
+	    		    "select s.ent_year, s.class_num, s.no as student_no, s.name, t.point "
+	    		  + "from student as s "
+	    		  + "left join test as t "
+	    		  + "on s.no = t.student_no "
+//	    		  + "and s.class_num = t.class_num "
+	    		  + "and s.school_cd = t.school_cd "
+	    		  + "and t.no = ? "
+	    		  + "and t.subject_cd = ? "
+	    		  + "where s.school_cd = ? "
+	    		  + "and s.ent_year = ? "
+	    		  + "and s.class_num = ? "
+	    		);
 
-	        // ✅ 正しい順番
-	        statement.setString(1, subject);          // 科目
-	        statement.setInt(2, no);                  // 回数
-	        statement.setString(3, school.getCd());   // 学校コード
-	        statement.setInt(4, entYear);             // 入学年度
-	        statement.setString(5, classNum);         // クラス
+    		// パラメータ順
+    		statement.setInt(1, no);
+    		statement.setString(2, subject);
+    		statement.setString(3, school.getCd());
+    		statement.setInt(4, entYear); 
+    		statement.setInt(5, Integer.parseInt(classNum));
 
+    		System.out.println("no = " + no);
+    		System.out.println("subject = " + subject);
+    		System.out.println("school_cd = " + school.getCd());
+    		System.out.println("class_num = " + classNum);
+    		
+	        System.out.println("SQL実行前");
 	        resultSet = statement.executeQuery();
+    		System.out.println(statement);
+    		System.out.println(resultSet);
+	        System.out.println("SQL実行後");
 
 	        // ✅ ここでlistに詰める（TpostFilter使わないなら）
 	        while (resultSet.next()) {
-	            Test test = new Test();
+	            System.out.println("while文に入ってる");
 
+	            Test test = new Test();
 	            test.setEntYear(resultSet.getInt("ent_year"));
 	            test.setClass_num(resultSet.getString("class_num"));
 	            test.setStudent_no(resultSet.getString("student_no"));
 	            test.setStudent_Name(resultSet.getString("name"));
-	            test.setPoint((Integer) resultSet.getObject("point"));// NULL対応
+	            test.setPoint((Integer) resultSet.getObject("point"));
 
 	            list.add(test);
 	        }
-		} catch (Exception e) {
+	    } catch (Exception e) {
 			throw e;
 		} finally {
 			// プリペアードステートメントを閉じる
