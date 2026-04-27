@@ -286,34 +286,56 @@ public class TestDao extends Dao {
 	    List<Test> list = new ArrayList<>();
 	    Connection connection = getConnection();
 	    PreparedStatement statement = null;
-	    ResultSet rs = null;
+	    ResultSet resultSet = null;
 
 	    try {
-	        statement = connection.prepareStatement(
-	        		"select s.ent_year, s.class_num, s.student_no, t.point "
-	        		+ "from student as s "
-	        		+ "left join test as t on s.student_no = t.student_no and s.class_num = t.class_num and s.school_cd = t.school_cd and t.no = ? "
-	        		+ "where s.school_cd = ? t.subject = ? and s.class_num = ?"
-	        );
+	    	System.out.println("sqlをセット");
+	    	statement = connection.prepareStatement(
+	    		    "select s.ent_year, s.class_num, s.no as student_no, s.name, t.point "
+	    		  + "from student as s "
+	    		  + "left join test as t "
+	    		  + "on s.no = t.student_no "
+//	    		  + "and s.class_num = t.class_num "
+	    		  + "and s.school_cd = t.school_cd "
+	    		  + "and t.no = ? "
+	    		  + "and t.subject_cd = ? "
+	    		  + "where s.school_cd = ? "
+	    		  + "and s.ent_year = ? "
+	    		  + "and s.class_num = ? "
+	    		);
 
-	        statement.setString(1, school.getCd());
-	        statement.setString(2, subject);
-	        statement.setString(3, classNum);
+    		// パラメータ順
+    		statement.setInt(1, no);
+    		statement.setString(2, subject);
+    		statement.setString(3, school.getCd());
+    		statement.setInt(4, entYear); 
+    		statement.setInt(5, Integer.parseInt(classNum));
 
-	        rs = statement.executeQuery();
+    		System.out.println("no = " + no);
+    		System.out.println("subject = " + subject);
+    		System.out.println("school_cd = " + school.getCd());
+    		System.out.println("class_num = " + classNum);
+    		
+	        System.out.println("SQL実行前");
+	        resultSet = statement.executeQuery();
+    		System.out.println(statement);
+    		System.out.println(resultSet);
+	        System.out.println("SQL実行後");
 
 	        // ✅ ここでlistに詰める（TpostFilter使わないなら）
-	        while (rs.next()) {
-	            Test t = new Test();
+	        while (resultSet.next()) {
+	            System.out.println("while文に入ってる");
 
-	            t.setEntYear(rs.getInt("ent_year"));
-	            t.setClass_num(rs.getString("class_num"));
-	            t.setStudent_no(rs.getString("student_no"));
-	            t.setStudent_Name(rs.getString("name"));
-	            t.setPoint((Integer)rs.getObject("point"));
-	            list.add(t);
+	            Test test = new Test();
+	            test.setEntYear(resultSet.getInt("ent_year"));
+	            test.setClass_num(resultSet.getString("class_num"));
+	            test.setStudent_no(resultSet.getString("student_no"));
+	            test.setStudent_Name(resultSet.getString("name"));
+	            test.setPoint((Integer) resultSet.getObject("point"));
+
+	            list.add(test);
 	        }
-		} catch (Exception e) {
+	    } catch (Exception e) {
 			throw e;
 		} finally {
 			// プリペアードステートメントを閉じる
@@ -337,7 +359,55 @@ public class TestDao extends Dao {
 		return list;
 	}
     
+
+	//	点数を更新
+	public void save(School school, String student_no, String class_num, String subject, int no, int point) throws Exception {
 	
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	
+	    try {
+	        System.out.println("sqlをセット");
+		    statement = connection.prepareStatement(
+	            "update test set point = ? where student_no = ? and subject_cd = ? and school_cd = ? and no = ? and class_num = ?"
+	            );
+	
+	        // パラメータ順
+	        statement.setInt(1, point);
+	        statement.setString(2, student_no);
+	        statement.setString(3, subject);
+	        statement.setString(4, school.getCd());
+	        statement.setInt(5, no); 
+	        statement.setString(6, class_num);
+	        
+	        System.out.println("SQL実行前");
+	        int count = statement.executeUpdate();
+	        System.out.println("更新件数: " + count);
+	        System.out.println(statement);
+	        System.out.println("SQL実行後");
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        // プリペアードステートメントを閉じる
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	        // コネクションを閉じる
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
+
+	}
+
 	
 	// 	public boolean save(Test test) throws Exception {
 
