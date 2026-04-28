@@ -62,8 +62,7 @@
 								<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
 							</c:forEach>
 						</select>
-						${f3}
-						${sub.cd}
+
 					</div>
 					
 					
@@ -112,7 +111,7 @@
 		</c:if>
 		<c:choose>
 			<c:when test="${empty tests}">
-			    <div class="text-danger">学生情報が存在しませんでした。</div>
+			    <div class="text-dark">学生情報が存在しませんでした。</div>
 			</c:when>
 			<c:otherwise>
 				<table class="table">

@@ -62,8 +62,7 @@
 								<option value="${sub.cd }" <c:if test="${sub.cd == f3 }">selected</c:if>>${sub.name }</option>
 							</c:forEach>
 						</select>
-						${f3}
-						${sub.cd}
+
 					</div>
 					
 					
@@ -106,13 +105,12 @@
 					</c:if>
 				</div>
 			</form>
-
-
 		</section>
+		<div class="mt-2 text-info">科目情報を選択または学生番号を入力して検索ボタンをクリックしてください。</div>
 			<table class="table">
 			<div>検索結果：${tests.size() }件</div>
 				<c:if test="${empty tests}">
-				    <div class="text-danger">データがありません</div>
+				    <div class="mt-2 text-dark">学生情報が存在しませんでした。</div>
 				</c:if>
 			    <thead>
 			        <tr>

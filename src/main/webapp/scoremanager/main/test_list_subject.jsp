@@ -111,7 +111,7 @@
 		    科目：${subjectName}
 		<c:choose>
 			<c:when test="${empty tests}">
-			    <div class="text-danger">学生情報が存在しませんでした。</div>
+			    <div class="text-dark">学生情報が存在しませんでした。</div>
 			</c:when>
 			<c:otherwise>
 				<table class="table">
