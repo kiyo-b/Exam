@@ -88,18 +88,94 @@ public class TestRegistExecuteAction extends Action {
 //		クラス番号
 		String[] student_no = req.getParameterValues("student_no");
 //		クラス番号
-		String[] point = req.getParameterValues("point");
+		String[] points = req.getParameterValues("point");
+		String[] oldpoints = req.getParameterValues("oldPoint");
 //		クラス番号
 		String[] no = req.getParameterValues("no");
 //		クラス番号
 		String[] subject = req.getParameterValues("subject");
 		
-		if ()
+		boolean hasError = false;
+		String errorMsg = "";
+		
+//		if (points == null) {
+//		    System.out.println("pointsがnullです");
+//		    req.setAttribute("errorMsg", "データが送信されていません");
+//		    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+//		    return;
+//		}
 
+		for (String p : points) {
 
-		// 全てのデータを「student_list.jsp」というファイルに渡して、画面を表示させます
+		    // ① null または 空チェック
+		    if (p == null || p.trim().isEmpty()) {
+		        hasError = true;
+		        errorMsg = "未入力の項目があります";
+		        break;
+		    }
 
-		req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
+		    try {
+		        int point = Integer.parseInt(p);
+
+		        // ② 範囲チェック
+		        if (point < 0 || point > 100) {
+		            hasError = true;
+		            errorMsg = "0～100の範囲で入力してください";
+		            break;
+		        }
+
+		    } catch (NumberFormatException e) {
+		        // 数値じゃない場合
+		        hasError = true;
+		        errorMsg = "数値で入力してください";
+		        break;
+		    }
+		}
+
+		// ③ 分岐
+		if (hasError) {
+		    req.setAttribute("errorMsg", errorMsg);
+		        tests = testDao.filter(
+			        school,
+			        Integer.parseInt(req.getParameter("f1")),
+			        req.getParameter("f2"),
+			        req.getParameter("f3"),
+			        Integer.parseInt(req.getParameter("f4"))
+			    );
+		    req.setAttribute("tests", tests);
+		    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+		} else {
+		    // 登録処理
+			for (int i = 0; i < points.length; i++) {
+
+			    String newValue = points[i];
+			    String oldValue = oldpoints[i];
+
+			    // 入力チェック（前にやったやつ）
+			    if (newValue == null || newValue.trim().isEmpty()) {
+			        // エラー処理
+			        continue;
+			    }
+
+			    int point = Integer.parseInt(newValue);
+
+			    // --- ここが本題 ---
+			    if (oldValue == null || oldValue.trim().isEmpty()) {
+			        // ① 元がnull → 新規登録（INSERT）
+			        testDao.insert(school, student_no[i], class_num[i], subject[i], Integer.parseInt(no[i]), point);
+
+			    } else {
+			        // ② 元がある → 更新（UPDATE）
+			        // ※値が変わってなくてもOK
+			        testDao.update(school, student_no[i], class_num[i], subject[i], Integer.parseInt(no[i]), point);
+
+			    }
+			}
+			
+		    res.sendRedirect("test_list_done.jsp");
+		    return;
+		}
+
 
 	}
 
