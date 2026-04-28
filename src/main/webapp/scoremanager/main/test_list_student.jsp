@@ -70,15 +70,19 @@
 
 					<%-- 絞込み実行ボタン --%>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" formaction="TestListSubjectExecute.action">検索</button>
+						<button class="btn btn-secondary" 
+						        formaction="TestListSubjectExecute.action"
+						        formnovalidate>
+						    検索
+						</button>
 					</div>
-
-					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-					<c:if test="${param.f1 == '0' or param.f2 == '0' or param.f3 == '0'}">
+					<c:if test="${empty param.f4 and (param.f1 == '0' or param.f2 == '0' or param.f3 == '0')}">
 					    <div class="mt-2 text-warning">
-					        入学年度とクラスと科目を選択してください。
+					        入学年度・クラス・科目をすべて選択してください。
 					    </div>
 					</c:if>
+
+
 					<div class="px-3">
 						<hr class="my-3 mx-4">
 					</div>
@@ -89,20 +93,18 @@
 					<%-- 学生番号のテキストボックス --%>
 					<div class="col-4">
 					    <label class="form-label" for="student-no-input">学生番号</label>
-					    <input type="text" class="form-control" id="student-no-input" name="f4" value="${studentNo}">
+					    <input type="text" class="form-control" id="student-no-input" name="f4" value="${studentNo}" required>
 					</div>
 					
 					<%-- 絞込み実行ボタン --%>
 					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" formaction="TestListStudentExecute.action">検索</button>
+						<button class="btn btn-secondary" 
+						        formaction="TestListStudentExecute.action">
+						    検索
+						</button>
 					</div>
 	
-					<%-- 入力エラー（例：クラスのみ選択して年度が未選択の場合など）を表示 --%>
-					<c:if test="${pageContext.request.servletPath == '/scoremanager/main/TestListStudentExecute.action' and empty param.f4}">
-					    <div class="mt-2 text-warning">
-					        学生番号を入力してください。
-					    </div>
-					</c:if>
+
 				</div>
 			</form>
 		</section>
@@ -111,7 +113,7 @@
 		</c:if>
 		<c:choose>
 			<c:when test="${empty tests}">
-			    <div class="text-dark">学生情報が存在しませんでした。</div>
+			    <div class="text-dark">成績情報が存在しませんでした。</div>
 			</c:when>
 			<c:otherwise>
 				<table class="table">
