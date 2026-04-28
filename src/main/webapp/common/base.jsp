@@ -26,17 +26,17 @@ ${param.scripts}
 
 		<div class="row justify-content-center">
  <%-- ログインチェックをコメントアウト --%>
-    <%-- <c:choose>
+    <c:choose>
         <c:when test="${user.isAuthenticated()}"> --%>
             <nav class="col-3" style="height:40rem;">
                 <c:import url="/common/navigation.jsp" />
             </nav>
             <main class="col-9 border-start"> ${param.content} </main>
-    <%-- </c:when>
+    <</c:when>
         <c:otherwise>
             <main class="col-8"> ${param.content} </main>
         </c:otherwise>
-    </c:choose> --%>
+    </c:choose>
 		</div>
 		<footer class="py-2 my-4 bg-dark bg-opacity-10 border-top border-3 align-bottom">
 			<c:import url="/common/footer.jsp" />
