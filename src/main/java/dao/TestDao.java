@@ -360,7 +360,7 @@ public class TestDao extends Dao {
 	}
     
 
-	//	点数を更新
+ 	//	点数を更新
 	public void update(School school, String student_no, String class_num, String subject, int no, int point) throws Exception {
 	
 	    Connection connection = getConnection();
@@ -442,7 +442,7 @@ public class TestDao extends Dao {
 	            try {
 	                statement.close();
 	            } catch (SQLException sqle) {
-	                throw sqle;
+	            	sqle.printStackTrace(); 
 	            }
 	        }
 	        // コネクションを閉じる
@@ -450,11 +450,14 @@ public class TestDao extends Dao {
 	            try {
 	                connection.close();
 	            } catch (SQLException sqle) {
-	                throw sqle;
-	            }
+	            	sqle.printStackTrace(); 
+	            
+	            }System.out.println("おわり");
 	        }
 	    }
 
-	}
+	} {
+    
+}
 
 }

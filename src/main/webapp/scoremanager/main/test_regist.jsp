@@ -117,25 +117,28 @@
 					            <tr>
 					                <td>${t.entYear}</td>
 					                <td>${t.class_num}
-    								<input type="hidden" name="class_num[]" value="${t.class_num}" /></td>
+    								<input type="hidden" name="class_num" value="${t.class_num}" /></td>
 					                <%-- 学生番号を引数にする --%>
 					                <td>${t.student_no}
-	    								<input type="hidden" name="student_no[]" value="${t.student_no}" /></td>
+	    								<input type="hidden" name="student_no" value="${t.student_no}" /></td>
 					                <td>${t.student_Name}</td>
 					                <%-- 変更後の点数を引数にする --%>
-					                <td><input type="hidden" name="oldPoint[]" value="${t.point}" />
-					                <input type="number" name="point[]" value="${t.point}" min="0" max="100" required></td>
+					                <td><input type="hidden" name="oldPoint" value="${t.point}" />
+					                <input type="number" name="point" value="${t.point}" min="0" max="100" required></td>
 					               
-					                <input type="hidden" name="no[]" value="${f4}" />
-					                <input type="hidden" name="subject[]" value="${f3}" />
+					                <input type="hidden" name="no" value="${f4}" />
+					                <input type="hidden" name="subject" value="${f3}" />
 					            </tr>
 					        </c:forEach>
 					    </tbody>				    
 					</table>
 					 <%-- 絞込み実行ボタン --%>
-					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button" >登録</button>
-					</div>
+					<c:if test="${not empty tests}">
+					    <%-- 余計なformタグを削除して、ボタンだけ置く --%>
+					    <div class="mt-3">
+					        <button type="submit" class="btn btn-primary">登録して保存</button>
+					    </div>
+					</c:if>
 				</form>
 			</c:otherwise>
 		</c:choose>
