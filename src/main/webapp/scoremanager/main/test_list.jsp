@@ -108,6 +108,7 @@
 			</form>
 		</section>
 		<div class="mt-2 text-info">科目情報を選択または学生番号を入力して検索ボタンをクリックしてください。</div>
+			<%--
 			<table class="table">
 			<div>検索結果：${tests.size() }件</div>
 				<c:if test="${empty tests}">
@@ -136,5 +137,6 @@
 			        </c:forEach>
 			    </tbody>
 			</table>
+			--%>
 	</c:param>
 </c:import>

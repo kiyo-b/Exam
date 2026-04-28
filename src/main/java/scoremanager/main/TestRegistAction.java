@@ -32,7 +32,7 @@ public class TestRegistAction extends Action {
 		// 本来はログインした先生の学校を使い  ますが、今回はテスト用に「oom」校として動かします
 
 		School school = new School();
-		school.setCd("tes"); // お使いのテストデータに合わせた学校コードを指定してください
+		school.setCd("oom"); // お使いのテストデータに合わせた学校コードを指定してください
  
 		// ローカル変数の指定 1
 
