@@ -13,7 +13,7 @@ import dao.ClassNumDao;
 import dao.SchoolDao;
 import dao.StudentDao;
 import dao.SubjectDao;
-import dao.TestDao;
+import dao.TestListStudentDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -63,7 +63,7 @@ public class TestListStudentExecuteAction extends Action {
 //		クラス情報を取得するため
 		ClassNumDao classNumDao = new ClassNumDao();
 //		テスト情報を取得するため
-		TestDao testDao = new TestDao();
+		TestListStudentDao testlsDao = new TestListStudentDao();
 //		エラー表示するため
 		Map<String, String> errors = new HashMap<>(); 
 		
@@ -105,7 +105,7 @@ public class TestListStudentExecuteAction extends Action {
 
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (student_no != null && !student_no.isEmpty()) {
-		    tests = testDao.filter(school, student_no);
+		    tests = testlsDao.filter(school, student_no);
 
 		} else {
 			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします

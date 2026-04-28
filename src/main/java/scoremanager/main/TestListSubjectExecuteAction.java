@@ -13,7 +13,7 @@ import dao.ClassNumDao;
 import dao.SchoolDao;
 import dao.StudentDao;
 import dao.SubjectDao;
-import dao.TestDao;
+import dao.TestListSubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -64,7 +64,7 @@ public class TestListSubjectExecuteAction extends Action {
 //		クラス情報を取得するため
 		ClassNumDao classNumDao = new ClassNumDao();
 //		テスト情報を取得するため
-		TestDao testDao = new TestDao();
+		TestListSubjectDao testlsDao = new TestListSubjectDao();
 //		エラー表示するため
 		Map<String, String> errors = new HashMap<>(); 
 		
@@ -127,7 +127,7 @@ public class TestListSubjectExecuteAction extends Action {
 		 {
 			// 入学年度とクラス番号を指定（例：2023年の1組）System.out.println("DAO呼び出し直前");
 			System.out.println("DAO呼び出し直前");
-			tests = testDao.filter(school, entYear, classNum, subjectCd);
+			tests = testlsDao.filter(school, entYear, classNum, subjectCd);
 			System.out.println("DAO呼び出し直後");
 
 		} else {
