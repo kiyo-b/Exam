@@ -151,7 +151,7 @@ public class TestDao extends Dao {
     		statement.setString(2, subject);
     		statement.setString(3, school.getCd());
     		statement.setInt(4, entYear); 
-    		statement.setInt(5, Integer.parseInt(classNum));
+    		statement.setInt(5, Integer.parseInt(classNum.trim()));
 
     		System.out.println("no = " + no);
     		System.out.println("subject = " + subject);

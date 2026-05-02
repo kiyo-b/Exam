@@ -62,9 +62,7 @@ ${param.scripts}
 					<main class="col-8">
 						<section>
 							<p>エラーが発生しました</p>
-							<p class="text-danger">
-								<%= exception %>
-							</p>
+							
 						</section>
 					</main>
 				</c:otherwise>

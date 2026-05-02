@@ -16,9 +16,12 @@
 	<c:param name="content">
 		<section class="me=4">
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績登録</h2>
-            <p>変更が完了しました</p>
-	        <a href="${pageContext.request.contextPath}/scoremanager/main/TestList.action">成績一覧</a>
-	        <a href="${pageContext.request.contextPath}/scoremanager/main/TestRegist.action">戻る</a>
+            <p style="background-color:#8DC3A9; width: 100%; text-align:center;">変更が完了しました</p>
+            <br>
+            <br>
+            <br>
+           	　<a href="${pageContext.request.contextPath}/scoremanager/main/TestRegist.action">戻る</a>
+	        　　　　　<a href="${pageContext.request.contextPath}/scoremanager/main/TestList.action">成績参照</a>
 		</section>
 	</c:param>
 </c:import>

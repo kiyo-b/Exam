@@ -88,7 +88,13 @@
 
 
 		</section>
-		科目：${subjectName}
+		
+		<c:forEach var="sub" items="${subject_set}">
+		    <c:if test="${sub.cd == f3}">
+		        科目：${sub.name}（${f4}回）
+		    </c:if>
+		</c:forEach>
+		
 		<c:if test="${not empty errorMsg}">
 		    <div class="text-danger">${errorMsg}</div>
 		</c:if>
