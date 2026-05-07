@@ -75,7 +75,9 @@ import tool.Action;
         TestDao testDao = new TestDao();
 
     //		エラー表示するため
-        Map<String, String> errors = new HashMap<>(); 
+        Map<String, String> errors = new HashMap<>();
+        
+        Map<String, String> inputPoints = new HashMap<>();
         
 
 
@@ -168,6 +170,11 @@ import tool.Action;
         for (int i = 0; i < points.length; i++) {
 
             String p = points[i];
+            String studentNo = student_no[i];
+            String pointStr = points[i];
+
+            // 入力値を保持
+            inputPoints.put(studentNo, pointStr);
 
             if (p == null || p.trim().isEmpty()) {
 
@@ -218,6 +225,7 @@ import tool.Action;
             req.setAttribute("subject_set", subjectDao.filter(school));
             req.setAttribute("testcount_set", countset);
             req.setAttribute("errors", errors);
+            req.setAttribute("inputPoints", inputPoints);
 
             req.getRequestDispatcher("test_regist.jsp").forward(req, res);
             return;

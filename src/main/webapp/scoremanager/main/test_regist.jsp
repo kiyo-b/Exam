@@ -128,7 +128,16 @@
 					                <td>${t.student_Name}</td>
 					                <%-- 変更後の点数を引数にする --%>
 					                <td><input type="hidden" name="oldPoint" value="${t.point}" />
-					                <input type="number" name="point" value="${t.point}"  required>
+					                <c:choose>
+									    <c:when test="${not empty inputPoints[t.student_no]}">
+									        <input type="number" name="point"
+									               value="${inputPoints[t.student_no]}" required>
+									    </c:when>
+									    <c:otherwise>
+									        <input type="number" name="point"
+									               value="${t.point}" required>
+									    </c:otherwise>
+									</c:choose>
 					                <c:if test="${errors[t.student_no] != null}">
 						                <div class="text-warning small">
 						                    ${errors[t.student_no]}
