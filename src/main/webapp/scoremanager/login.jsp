@@ -1,48 +1,211 @@
-<%--
-    科目情報変更画面
-    機能：科目の情報の編集
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<c:import url="/common/base.jsp">
-	<c:param name="title">得点管理システム</c:param>
-	<c:param name="scripts"></c:param>
-	
-	<c:param name="content">
-		<section class="me-4">
-			<h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">
-				ログイン</h2>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
+<!DOCTYPE html>
 
-			<form action="Login.action" method="post">
+<html lang="ja">
 
-				<div class="card mx-auto mt-4" style="max-width: 420px;">
-					<div class="card-body text-center">
+<head>
 
-						<input type="text" class="form-control mb-3" name="id"
-							value="${id}" placeholder="半角でご入力ください" required> 
-						<input type="password" class="form-control mb-3" name="password"
-							placeholder="30文字以内の半角英数字でご入力ください" required>
+    <meta charset="UTF-8">
 
-						<div class="form-check d-flex justify-content-center mb-3">
-							<input type="checkbox" class="form-check-input me-2"
-								id="chk_d_ps" name="chk_d_ps"> 
-								<label class="form-check-label" for="chk_d_ps"> パスワードを表示 </label>
-						</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-						<button type="submit" class="btn btn-primary w-100">ログイン
-						</button>
+    <title>ログイン | 得点管理システム</title>
 
-					</div>
-				</div>
+    <%-- Bootstrap 5 CSS --%>
 
-			</form>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-		</section>
-	</c:param>
-</c:import>
+</head>
 
+<body class="bg-light">
 
+ 
 
+    <div class="container" style="max-width: 500px; margin-top: 100px;">
+
+ 
+
+        <%-- システムタイトル --%>
+
+        <div class="text-center mb-4">
+
+            <h1 class="h3 fw-bold">得点管理システム</h1>
+
+        </div>
+
+ 
+
+        <%-- ログインフォーム --%>
+
+        <div class="card shadow-sm">
+
+            <%-- 画面タイトル --%>
+
+            <div class="card-header bg-white text-center py-3">
+
+                <h2 class="h4 mb-0 fw-bold">ログイン</h2>
+
+            </div>
+
+ 
+
+            <div class="card-body p-4">
+
+ 
+
+                <%-- 認証エラーメッセージ(エラー時のみ表示) --%>
+
+                <c:if test="${not empty errors}">
+
+                    <div class="alert alert-danger">
+
+                        <ul class="mb-0 ps-3">
+
+                            <c:forEach var="error" items="${errors}">
+
+                                <li>${error.value}</li>
+
+                            </c:forEach>
+
+                        </ul>
+
+                    </div>
+
+                </c:if>
+
+ 
+
+                <form method="post" action="<c:url value='/scoremanager/main/LoginExecute.action'/>">
+
+ 
+
+                    <%-- ログインID --%>
+
+                    <div class="form-floating mb-3">
+
+                        <input type="text"
+
+                               class="form-control"
+
+                               id="login-id"
+
+                               name="id"
+
+                               placeholder="半角でご入力ください"
+
+                               value="${id}"
+
+                               maxlength="10"
+
+                               required>
+
+                        <label for="login-id">ＩＤ</label>
+
+                    </div>
+
+ 
+
+                    <%-- パスワード --%>
+
+                    <div class="form-floating mb-3">
+
+                        <input type="password"
+
+                               class="form-control"
+
+                               id="login-password"
+
+                               name="password"
+
+                               placeholder="30文字以内の半角英数字でご入力ください"
+
+                               maxlength="30"
+
+                               required>
+
+                        <label for="login-password">パスワード</label>
+
+                    </div>
+
+ 
+
+                    <%-- パスワード表示/非表示チェックボックス --%>
+
+                    <div class="form-check d-flex justify-content-center">
+
+                        <input type="checkbox"
+
+                               class="form-check-input"
+
+                               id="chk_d_ps"
+
+                               onclick="togglePassword()">
+
+                        <label for="chk_d_ps" class="form-check-label mb-3">
+
+                            パスワードを表示
+
+                        </label>
+
+                    </div>
+
+ 
+
+                    <%-- ログインボタン --%>
+
+                    <div class="d-grid">
+
+                        <button type="submit" name="login" class="btn btn-primary btn-lg">
+
+                            ログイン
+
+                        </button>
+
+                    </div>
+
+ 
+
+                </form>
+
+            </div>
+
+        </div>
+
+ 
+
+        <%-- フッター --%>
+
+        <div class="text-center text-muted mt-4 small">
+
+            &copy; 2023 TIC 大原学園
+
+        </div>
+
+    </div>
+
+ 
+
+    <%-- パスワード表示切替のJavaScript --%>
+
+    <script>
+
+        function togglePassword() {
+
+            const pw = document.getElementById("login-password");
+
+            const chk = document.getElementById("chk_d_ps");
+
+            pw.type = chk.checked ? "text" : "password";
+
+        }
+
+    </script>
+
+ 
+
+</body>
+
+</html>
