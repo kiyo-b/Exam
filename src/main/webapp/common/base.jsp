@@ -27,14 +27,16 @@ ${param.scripts}
 		<div class="row justify-content-center">
  <%-- ログインチェックをコメントアウト --%>
     <c:choose>
-        <c:when test="${user.isAuthenticated()}"> --%>
+        <c:when test="${user.isAuthenticated()}">
             <nav class="col-3" style="height:40rem;">
                 <c:import url="/common/navigation.jsp" />
             </nav>
             <main class="col-9 border-start"> ${param.content} </main>
-    <</c:when>
+    	</c:when>
         <c:otherwise>
             <main class="col-8"> ${param.content} </main>
+            <%-- ログインが完成したらこの下のimportを消したらいいです --%>
+            <c:import url="/common/navigation.jsp" />
         </c:otherwise>
     </c:choose>
 		</div>

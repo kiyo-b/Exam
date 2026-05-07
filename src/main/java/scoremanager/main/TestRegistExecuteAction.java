@@ -75,7 +75,9 @@ import tool.Action;
         TestDao testDao = new TestDao();
 
     //		エラー表示するため
-        Map<String, String> errors = new HashMap<>(); 
+        Map<String, String> errors = new HashMap<>();
+        
+        Map<String, String> inputPoints = new HashMap<>();
         
 
 
@@ -138,35 +140,67 @@ import tool.Action;
     //		    return;
     //		}
 
-        for (String p : points) {
+//        for (String p : points) {
+//
+//            // ① null または 空チェック
+//            if (p == null || p.trim().isEmpty()) {
+//                hasError = true;
+//                errorMsg = "未入力の項目があります";
+//                break;
+//            }
+//
+//            try {
+//                int point = Integer.parseInt(p);
+//
+//                // ② 範囲チェック
+//                if (point < 0 || point > 100) {
+//                    hasError = true;
+//                    errorMsg = "0～100の範囲で入力してください";
+//                    break;
+//                }
+//
+//            } catch (NumberFormatException e) {
+//                // 数値じゃない場合
+//                hasError = true;
+//                errorMsg = "数値で入力してください";
+//                break;
+//            }
+//        }
+        
+        for (int i = 0; i < points.length; i++) {
 
-            // ① null または 空チェック
+            String p = points[i];
+            String studentNo = student_no[i];
+            String pointStr = points[i];
+
+            // 入力値を保持
+            inputPoints.put(studentNo, pointStr);
+
             if (p == null || p.trim().isEmpty()) {
-                hasError = true;
-                errorMsg = "未入力の項目があります";
-                break;
+
+                errors.put(student_no[i], "未入力です");
+                continue;
             }
 
             try {
+
                 int point = Integer.parseInt(p);
 
-                // ② 範囲チェック
                 if (point < 0 || point > 100) {
-                    hasError = true;
-                    errorMsg = "0～100の範囲で入力してください";
-                    break;
+
+                    errors.put(student_no[i],
+                            "0～100で入力してください");
                 }
 
             } catch (NumberFormatException e) {
-                // 数値じゃない場合
-                hasError = true;
-                errorMsg = "数値で入力してください";
-                break;
+
+                errors.put(student_no[i],
+                        "数字で入力してください");
             }
         }
 
         // ③ 分岐
-        if (hasError) {
+        if (!errors.isEmpty()){
             req.setAttribute("errorMsg", errorMsg);
             
     //		    検索結果を再表示させるため
@@ -190,6 +224,8 @@ import tool.Action;
             req.setAttribute("ent_year_set", entYearSet);
             req.setAttribute("subject_set", subjectDao.filter(school));
             req.setAttribute("testcount_set", countset);
+            req.setAttribute("errors", errors);
+            req.setAttribute("inputPoints", inputPoints);
 
             req.getRequestDispatcher("test_regist.jsp").forward(req, res);
             return;

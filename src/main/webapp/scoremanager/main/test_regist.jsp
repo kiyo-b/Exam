@@ -95,15 +95,13 @@
 		    </c:if>
 		</c:forEach>
 		
-		<c:if test="${not empty errorMsg}">
-		    <div class="text-danger">${errorMsg}</div>
-		</c:if>
+
 		<c:choose>
 			<c:when test="${empty tests}">
 			    <div class="text-danger"></div>
 			</c:when>
 			<c:otherwise>
-				<form method = "post" action="TestRegistExecute.action">
+				<form method = "post" action="TestRegistExecute.action" novalidate>
 					<input type="hidden" name="f1" value="${f1}">
 					<input type="hidden" name="f2" value="${f2}">
 					<input type="hidden" name="f3" value="${f3}">
@@ -130,8 +128,23 @@
 					                <td>${t.student_Name}</td>
 					                <%-- 変更後の点数を引数にする --%>
 					                <td><input type="hidden" name="oldPoint" value="${t.point}" />
-					                <input type="number" name="point" value="${t.point}" min="0" max="100" required></td>
-					               
+					                <c:choose>
+									    <c:when test="${not empty inputPoints[t.student_no]}">
+									        <input type="number" name="point"
+									               value="${inputPoints[t.student_no]}" required>
+									    </c:when>
+									    <c:otherwise>
+									        <input type="number" name="point"
+									               value="${t.point}" required>
+									    </c:otherwise>
+									</c:choose>
+					                <c:if test="${errors[t.student_no] != null}">
+						                <div class="text-warning small">
+						                    ${errors[t.student_no]}
+						                </div>
+						            </c:if>
+					                </td>
+													               
 					                <input type="hidden" name="no" value="${f4}" />
 					                <input type="hidden" name="subject" value="${f3}" />
 					            </tr>
