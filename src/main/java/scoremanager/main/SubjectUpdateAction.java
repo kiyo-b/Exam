@@ -14,7 +14,7 @@ public class SubjectUpdateAction extends Action {
 
         // 仮の学校情報
         School school = new School();
-        school.setCd("tes");
+        school.setCd("oom");
 
         // JSP から受け取る値
         String cd = req.getParameter("cd");

@@ -134,6 +134,13 @@
 				                <td>${t.point}</td>
 				            </tr>
 				        </c:forEach>
+				        
+				        <p>平均点:
+				        <c:forEach var="a" items="${avg}">
+						    ${a.no}回目：${a.avgPoint}
+						    　　
+						</c:forEach>
+						</p>
 				    </tbody>
 				</table>
 			</c:otherwise>

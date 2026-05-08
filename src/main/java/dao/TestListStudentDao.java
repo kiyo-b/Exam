@@ -107,4 +107,45 @@ public class TestListStudentDao extends Dao {
 
 		return list;
 	}
+	
+	public List<Test> getAverage(School school, String no) throws Exception {
+
+	    List<Test> list = new ArrayList<>();
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+
+	    try {
+	        statement = connection.prepareStatement(
+	            "select "
+	          + "t.no, "
+	          + "avg(t.point) as avg_point "
+	          + "from test t "
+	          + "where t.school_cd = ? "
+	          + "and t.student_no = ? "
+	          + "group by t.no "
+	          + "order by t.no"
+	        );
+
+	        statement.setString(1, school.getCd());
+	        statement.setString(2, no);
+
+	        resultSet = statement.executeQuery();
+
+	        while (resultSet.next()) {
+	            Test t = new Test();
+
+	            t.setNo(resultSet.getInt("no"));
+	            t.setAvgPoint(resultSet.getDouble("avg_point"));
+
+	            list.add(t);
+	        }
+
+	    } finally {
+	        if (statement != null) statement.close();
+	        if (connection != null) connection.close();
+	    }
+
+	    return list;
+	}
 }

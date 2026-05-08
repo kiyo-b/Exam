@@ -122,11 +122,12 @@ public class TestListSubjectDao extends Dao {
 			    int sum = 0;
 			    int count = 0;
 			    
-			    if (t.getPoint1() != null) {
+			    if (t.getPoint1() != null && !t.getPoint1().equals("-")) {
 			        sum += Integer.parseInt(t.getPoint1());
 			        count++;
 			    }
-			    if (t.getPoint2() != null) {
+
+			    if (t.getPoint2() != null && !t.getPoint2().equals("-")) {
 			        sum += Integer.parseInt(t.getPoint2());
 			        count++;
 			    }
