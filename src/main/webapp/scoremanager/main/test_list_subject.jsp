@@ -123,6 +123,7 @@
 				            <th>名前</th>
 				            <th>1回目</th>
 				            <th>2回目</th>
+				            <th>平均点</th>
 				        </tr>
 				    </thead>
 				    <tbody>
@@ -134,6 +135,7 @@
 				                <td>${t.student_Name}</td>
 				                <td>${t.point1}</td>
 				                <td>${t.point2}</td>
+				                <td>${t.average}</td>
 				            </tr>
 				        </c:forEach>
 				    </tbody>
