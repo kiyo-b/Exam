@@ -31,6 +31,8 @@ public class Test implements Serializable {
 	private Integer point;
 	
 	private String class_num;
+	
+	private Double average;
 
 	/**
 	 * ゲッター・セッター
@@ -121,5 +123,13 @@ public class Test implements Serializable {
 
 	public void setPoint(Integer point) {
 		this.point = point;
+	}
+	
+	public Double getAverage() {
+	    return average;
+	}
+
+	public void setAverage(Double average) {
+	    this.average = average;
 	}
 }
