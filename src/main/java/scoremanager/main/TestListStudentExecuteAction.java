@@ -50,6 +50,7 @@ public class TestListStudentExecuteAction extends Action {
 
 // 学生情報を格納するリスト
 		List<Test> tests = null; 
+		List<Test> avg = null;
 // 入学年度を10年分にするためにいまの年度を取得
 		LocalDate todaysDate = LocalDate.now(); 
 		int year = todaysDate.getYear(); 
@@ -106,18 +107,19 @@ public class TestListStudentExecuteAction extends Action {
 		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
 		if (student_no != null && !student_no.isEmpty()) {
 		    tests = testlsDao.filter(school, student_no);
+		    avg = testlsDao.getAverage(school, student_no);
 
 		} else {
 			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
 			errors.put("f4", "学生番号を入力してください");
 			req.setAttribute("errors", errors);
-//			tests = studentDao.filter(school, isAttend);
 		}
 
 		// レスポンス値をセット 6
 		// 次の画面（JSP）で表示するために、検索結果や選択肢などのデータを詰め込みます
 //		検索結果を表示するための検索後結果
 		req.setAttribute("tests", tests);
+		req.setAttribute("avg", avg);
 		req.setAttribute("f4", student_no);
 		req.setAttribute("student_no", student_no);      // 検索された学生名簿
 		req.setAttribute("class_num_set", list);    // クラスの選択肢

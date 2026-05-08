@@ -14,7 +14,7 @@ public class SubjectDeleteAction extends Action {
     	req.setCharacterEncoding("UTF-8");
         // 仮の学校情報
         School school = new School();
-        school.setCd("tes");
+        school.setCd("oom");
 
         // JSP から受け取る値
         String cd = req.getParameter("cd");

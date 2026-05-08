@@ -116,6 +116,29 @@ public class TestListSubjectDao extends Dao {
 
 			// リストへの格納処理を実行
 			list = TpostFilter(resultSet);
+			
+			for (Test t : list) {
+
+			    int sum = 0;
+			    int count = 0;
+			    
+			    if (t.getPoint1() != null && !t.getPoint1().equals("-")) {
+			        sum += Integer.parseInt(t.getPoint1());
+			        count++;
+			    }
+
+			    if (t.getPoint2() != null && !t.getPoint2().equals("-")) {
+			        sum += Integer.parseInt(t.getPoint2());
+			        count++;
+			    }
+
+			    if (count > 0) {
+			        t.setAverage((double) sum / count);
+			    } else {
+			        t.setAverage(null);
+			    }
+			}
+			
 		} catch (Exception e) {
 			throw e;
 		} finally {
