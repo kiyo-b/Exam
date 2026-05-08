@@ -28,7 +28,7 @@ ${param.scripts}
  <%-- ログインチェックをコメントアウト --%>
     <c:choose>
         <c:when test="${user.isAuthenticated()}">
-            <nav class="col-3" style="height:40rem;">
+            <nav class="col-3 mb-4" style="height:40rem;">
                 <c:import url="/common/navigation.jsp" />
             </nav>
             <main class="col-9 border-start"> ${param.content} </main>
