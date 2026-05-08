@@ -9,8 +9,6 @@ import java.util.Map;
 import bean.School;
 import bean.Test;
 import dao.ClassNumDao;
-import dao.SchoolDao;
-import dao.StudentDao;
 import dao.SubjectDao;
 import dao.TestDao;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,14 +57,8 @@ import tool.Action;
 
     // インスタンス化
 
-    //		学校情報を取得するため
-        SchoolDao schoolDao = new SchoolDao();
-
     //		科目情報を取得するため
         SubjectDao subjectDao = new SubjectDao();
-
-    //		学生情報を取得するため
-        StudentDao studentDao = new StudentDao();
 
     //		クラス情報を取得するため
         ClassNumDao classNumDao = new ClassNumDao();
@@ -98,7 +90,7 @@ import tool.Action;
     //		クラス番号
         String[] subject = req.getParameterValues("subject");
         
-        boolean hasError = false;
+
         String errorMsg = "";
         
     //		配列の中身をコンソールに出力
@@ -132,40 +124,7 @@ import tool.Action;
         for (int i = 1; i <= 2; i++) {
             countset.add(i);
         }
-        
-    //		if (points == null) {
-    //		    System.out.println("pointsがnullです");
-    //		    req.setAttribute("errorMsg", "データが送信されていません");
-    //		    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
-    //		    return;
-    //		}
 
-//        for (String p : points) {
-//
-//            // ① null または 空チェック
-//            if (p == null || p.trim().isEmpty()) {
-//                hasError = true;
-//                errorMsg = "未入力の項目があります";
-//                break;
-//            }
-//
-//            try {
-//                int point = Integer.parseInt(p);
-//
-//                // ② 範囲チェック
-//                if (point < 0 || point > 100) {
-//                    hasError = true;
-//                    errorMsg = "0～100の範囲で入力してください";
-//                    break;
-//                }
-//
-//            } catch (NumberFormatException e) {
-//                // 数値じゃない場合
-//                hasError = true;
-//                errorMsg = "数値で入力してください";
-//                break;
-//            }
-//        }
         
         for (int i = 0; i < points.length; i++) {
 
@@ -256,14 +215,14 @@ import tool.Action;
     //			        もしDBに点数がない、または-のとき
                     if (oldValue == null || oldValue.trim().isEmpty() || oldValue.equals("-")) {
     //			        	登録
-                        System.out.println("INSERT実行");
+                        System.out.println("登録実行");
                         testDao.insert(school, student_no[i], class_num[i], subject[i], Integer.parseInt(no[i]), point);
-                        System.out.println("INSERT実行終了");
+                        System.out.println("登録実行終了");
                     } else {
     //			        	更新
-                        System.out.println("UPDATE実行");
+                        System.out.println("更新実行");
                         testDao.update(school, student_no[i], class_num[i], subject[i], Integer.parseInt(no[i]), point);
-                        System.out.println("UPDATE実行終了");
+                        System.out.println("更新実行終了");
                     }
 
                 } catch (Exception e) {

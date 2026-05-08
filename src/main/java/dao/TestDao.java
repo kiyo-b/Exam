@@ -12,7 +12,6 @@ import bean.Test;
 
 public class TestDao extends Dao {
 
-	private String baseSql = "select * from test where school_cd = ? ";
 	private List<Test> TpostFilter(ResultSet resultSet) throws Exception {
 
 		// リストを初期化
