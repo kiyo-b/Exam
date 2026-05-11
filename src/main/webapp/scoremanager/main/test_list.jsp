@@ -88,7 +88,8 @@
 					<%-- 学生番号のテキストボックス --%>
 					<div class="col-4">
 					    <label class="form-label" for="student-no-input">学生番号</label>
-					    <input type="text" class="form-control" id="student-no-input" name="f4" value="${studentNo}" required>
+					    <input type="text" class="form-control" id="student-no-input" name="f4" value="${studentNo}" placeholder="学生番号を入力してください"
+					    required>
 					</div>
 					
 					<%-- 絞込み実行ボタン --%>
