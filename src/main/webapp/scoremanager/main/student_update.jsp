@@ -34,7 +34,7 @@
                     <div class="col-12">
                         <label class="form-label" for="student-f3-input">氏名</label>
                         <input type="text" class="form-control" id="student-f3-input"
-                               name="f3" value="${f3}" placeholder="氏名を入力してください">
+                               name="f3" value="${f3}" placeholder="氏名を入力してください" required>
                         <c:if test="${errors.f3 != null}">
                             <div class="text-danger mt-1">${errors.f3}</div>
                         </c:if>
@@ -74,6 +74,7 @@
                 <!-- ボタン -->
                 <div class="mt-4">
                     <button type="submit" class="btn btn-secondary">変更</button>
+                    <br>
                     <a href="${pageContext.request.contextPath}/scoremanager/main/StudentList.action"
                        class="btn btn-link">戻る</a>
                 </div>

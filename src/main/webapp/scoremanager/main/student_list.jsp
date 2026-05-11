@@ -107,9 +107,10 @@
 					</table>
 				</c:when>
 				
-				<%-- 検索結果が0件だった場合 --%>
-				<c:otherwise>
-					<div class="alert alert-info">学生情報が存在しませんでした。</div>
+				 <c:otherwise>
+					<div class="alert" style="background-color: white; color: black;">
+            			学生情報が存在しませんでした。
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</section>

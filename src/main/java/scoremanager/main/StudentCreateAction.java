@@ -87,7 +87,7 @@ public class StudentCreateAction extends Action {
         if (errors.isEmpty()) {
             Student old = studentDao.get(no);
             if (old != null) {
-                errors.put("f2", "この学生番号は既に登録されています");
+                errors.put("f2", "学生番号が重複しています");
             }
         }
         

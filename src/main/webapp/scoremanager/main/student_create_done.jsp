@@ -10,10 +10,18 @@
             学生情報登録
         </h2>
 
-        <p>登録が完了しました。</p>
+        <div style = "background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;">
+        	登録完了しました。
+        </div>
 
-        <a href="${pageContext.request.contextPath}/scoremanager/main/StudentCreate.action">続けて登録する</a>
-        <br>
-        <a href="${pageContext.request.contextPath}/scoremanager/main/StudentList.action">学生一覧へ戻る</a>
+        <a href="${pageContext.request.contextPath}/scoremanager/main/StudentCreate.action" style="margin-right: 30px;">戻る</a>
+        
+        <a href="${pageContext.request.contextPath}/scoremanager/main/StudentList.action">学生一覧</a>
     </c:param>
 </c:import>
