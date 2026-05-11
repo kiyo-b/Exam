@@ -100,7 +100,7 @@
 					</div>
 					<c:if test="${empty param.f4 and (param.f1 == '0' or param.f2 == '0' or param.f3 == '0')}">
 					    <div class="mt-2 text-warning">
-					        入学年度・クラス・科目をすべて選択してください。
+					        入学年度とクラスと科目を選択してください。
 					    </div>
 					</c:if>
 
