@@ -8,6 +8,7 @@ import java.util.Map;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
 import dao.SchoolDao;
@@ -16,6 +17,7 @@ import dao.SubjectDao;
 import dao.TestDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
  
 public class TestRegistAction extends Action {
@@ -23,16 +25,17 @@ public class TestRegistAction extends Action {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		System.out.println("★★★ Action開始 ★★★");
-		// HttpSession session = req.getSession(); // コメントアウト
+		HttpSession session = req.getSession(); // コメントアウト
+		Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
+		School school = teacher.getSchool();
 
-		// Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
  
 		// 【代わりの処理】ログイン情報の代わりに、仮の学校情報を設定
 
 		// 本来はログインした先生の学校を使い  ますが、今回はテスト用に「oom」校として動かします
 
-		School school = new School();
-		school.setCd("oom"); // お使いのテストデータに合わせた学校コードを指定してください
+//		School school = new School();
+//		school.setCd("oom"); // お使いのテストデータに合わせた学校コードを指定してください
  
 		// ローカル変数の指定 1
 

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
 import dao.SchoolDao;
@@ -16,6 +17,7 @@ import dao.SubjectDao;
 import dao.TestDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class TestListAction extends Action {
@@ -23,13 +25,14 @@ public class TestListAction extends Action {
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		// HttpSession session = req.getSession(); // コメントアウト
-		// Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
+		HttpSession session = req.getSession(); // コメントアウト
+		Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
+		School school = teacher.getSchool();
 
 		// 【代わりの処理】ログイン情報の代わりに、仮の学校情報を設定
 		// 本来はログインした先生の学校を使いますが、今回はテスト用に「oom」校として動かします
-		School school = new School();
-		school.setCd("oom"); // お使いのテストデータに合わせた学校コードを指定してください
+//		School school = new School();
+//		school.setCd("oom"); // お使いのテストデータに合わせた学校コードを指定してください
 
 		// ローカル変数の指定 1
 		// 画面から送られてくる検索条件や、DBから取ってきたデータを入れるための「箱」を準備します
