@@ -104,20 +104,27 @@ public class TestListStudentExecuteAction extends Action {
 		List<Subject> slist = subjectDao.filter(school);
 		System.out.println(slist);
 
-		// ここで「どういう条件で検索するか」を判断し、DB（Dao）に命令を出します
+		
+		bean.Student student = null;
+
 		if (student_no != null && !student_no.isEmpty()) {
 		    tests = testlsDao.filter(school, student_no);
 		    avg = testlsDao.getAverage(school, student_no);
 
+		    // 学生情報取得
+		    student = studentDao.get(student_no);
 		} else {
-			// クラスだけ選んで年度を忘れた場合、エラーメッセージを出して全表示にします
-			errors.put("f4", "学生番号を入力してください");
-			req.setAttribute("errors", errors);
+		    errors.put("f4", "学生番号を入力してください");
+		    req.setAttribute("errors", errors);
 		}
+		
+
+		
 
 		// レスポンス値をセット 6
 		// 次の画面（JSP）で表示するために、検索結果や選択肢などのデータを詰め込みます
 //		検索結果を表示するための検索後結果
+		req.setAttribute("student", student);
 		req.setAttribute("tests", tests);
 		req.setAttribute("avg", avg);
 		req.setAttribute("f4", student_no);

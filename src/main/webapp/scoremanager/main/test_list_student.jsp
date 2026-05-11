@@ -108,8 +108,9 @@
 				</div>
 			</form>
 		</section>
-		<c:if test="${not empty tests}">
-		    氏名：${tests[0].student_Name}(${tests[0].student_no})
+
+		<c:if test="${not empty student}">
+		    氏名：${student.name}（${student.no}）
 		</c:if>
 		<c:choose>
 			<c:when test="${empty tests}">

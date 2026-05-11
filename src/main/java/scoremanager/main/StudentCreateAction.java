@@ -20,7 +20,7 @@ public class StudentCreateAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
         School school = new School();
-        school.setCd("tes");
+        school.setCd("oom");
 
         LocalDate today = LocalDate.now();
         int year = today.getYear();
