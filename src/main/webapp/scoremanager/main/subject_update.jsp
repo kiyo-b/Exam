@@ -19,7 +19,8 @@
 			
 			<form action="SubjectUpdate.action" method="post">
 			
-				<input type="text" class="form-label"  name="cd" value="${cd}" placeholder="科目コードを入力してください" style="width: 900px;" required><br>
+				<p class="form-control-plaintext">${cd}</p>
+                <input type="hidden" name="cd" value="${cd}">
 			
 				<label class="form-label">科目名</label><br>
 			

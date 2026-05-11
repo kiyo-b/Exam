@@ -21,7 +21,20 @@ public class SubjectUpdateAction extends Action {
         String name = req.getParameter("name");
         
         SubjectDao dao = new SubjectDao();
+        
 
+        if (name == null || name.trim().isEmpty()) {
+
+            Subject subject = dao.get(cd, school);
+
+            req.setAttribute("cd", subject.getCd());
+            req.setAttribute("name", subject.getName());
+
+            req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+            return;
+        }
+
+        
         boolean hasError = false;
 
         // --- 入力チェック ---
@@ -38,7 +51,7 @@ public class SubjectUpdateAction extends Action {
 
         // エラーがある場合は登録画面へ戻す
         if (hasError) {
-            req.getRequestDispatcher("subject_create.jsp").forward(req, res);
+            req.getRequestDispatcher("subject_update.jsp").forward(req, res);
             return;
         }
 
@@ -47,9 +60,9 @@ public class SubjectUpdateAction extends Action {
         subject.setCd(cd);
         subject.setName(name);
         subject.setSchool(school);
-
         
         dao.update(subject);
+        
 
         // 完了画面へ
         req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);

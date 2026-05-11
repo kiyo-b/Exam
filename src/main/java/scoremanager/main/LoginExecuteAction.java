@@ -48,7 +48,7 @@ public class LoginExecuteAction extends Action {
 
             Map<String, String> errors = new HashMap<>();
 
-            errors.put("login", "IDまたはパスワードが間違っています");
+            errors.put("login", "ログインに失敗しました。IDまたはパスワードが間違っています。");
  
             request.setAttribute("errors", errors);
 
