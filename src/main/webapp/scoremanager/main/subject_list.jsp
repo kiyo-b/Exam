@@ -32,7 +32,7 @@
 					<tr>
 						<td>${subject.cd}</td>
 						<td>${subject.name}</td>
-						<td><a href="subject_update.jsp">変更</a></td>
+						<td><a href="SubjectUpdate.action?cd=${subject.cd}">変更</a></td>
 						<td>< c:url var="deleteUrl" value="subject_delete.jsp"> <c:param
 								name="cd" value="${subject.cd}" /> <c:param name="name"
 								value="${subject.name}" /> </c:url> <a href="${deleteUrl}">削除</a>

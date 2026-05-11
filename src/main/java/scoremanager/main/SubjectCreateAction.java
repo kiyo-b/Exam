@@ -30,8 +30,8 @@ public class SubjectCreateAction extends Action {
             hasError = true;
         }
         // 科目コード文字数チェック
-        else if (cd.length() != 2) {
-            req.setAttribute("cdError", "科目コードは2文字で入力してください");
+        else if (cd.length() != 3) {
+            req.setAttribute("cdError", "科目コードは3文字で入力してください");
             hasError = true;
         }
         // 科目コード重複チェック

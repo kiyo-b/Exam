@@ -15,11 +15,23 @@
                 科目情報登録
             </h2>
 
-			<label class="form-label">科目コード</label>
+			
 			
 			<form action="SubjectCreate.action" method="post">
-			
-				<input type="text" class="form-label"  name="cd" value="" placeholder="科目コードを入力してください" style="width: 900px;" required><br>
+				
+				<label class="form-label">科目コード</label>
+				
+				<input type="text" class="form-label"  name="cd" value="" placeholder="科目コードを入力してください" style="width: 900px;" required>
+				
+				
+				<c:if test="${not empty cdError}">
+				    <div style="color: orange; font-size: 14px;">
+				        ${cdError}
+				    </div>
+				</c:if>
+
+				
+				<br>
 			
 				<label class="form-label">科目名</label><br>
 			
