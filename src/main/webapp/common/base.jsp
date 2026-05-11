@@ -35,6 +35,10 @@ ${param.scripts}
     	</c:when>
         <c:otherwise>
             <main class="col-8"> ${param.content} </main>
+<<<<<<< HEAD
+=======
+            <%-- ログインが完成したらこの下のimportを消したらいいです --%>
+>>>>>>> branch 'master' of https://github.com/kiyo-b/Exam.git
         </c:otherwise>
     </c:choose>
 		</div>
