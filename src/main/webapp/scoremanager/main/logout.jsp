@@ -14,7 +14,7 @@
                 ログアウト
             </h2>
             
-            <label><p style="background-color:#8DC3A9; width: 100%;">ログアウトしました</p></label><br>
+            <p style="background-color:#8DC3A9; width: 100%; text-align:center;">ログアウトしました</p>
 			<a href="Login.action">ログイン</a>
 			
 
