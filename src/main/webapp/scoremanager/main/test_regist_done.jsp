@@ -15,8 +15,8 @@
 	<%-- メインコンテンツ部分の定義 --%>
 	<c:param name="content">
 		<section class="me=4">
-            <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績登録</h2>
-            <p style="background-color:#8DC3A9; width: 100%; text-align:center;">変更が完了しました</p>
+            <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
+            <p style="background-color:#8DC3A9; width: 100%; text-align:center;">登録が完了しました</p>
             <br>
             <br>
             <br>
