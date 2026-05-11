@@ -36,7 +36,6 @@ ${param.scripts}
         <c:otherwise>
             <main class="col-8"> ${param.content} </main>
             <%-- ログインが完成したらこの下のimportを消したらいいです --%>
-            <c:import url="/common/navigation.jsp" />
         </c:otherwise>
     </c:choose>
 		</div>
