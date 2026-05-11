@@ -2,9 +2,11 @@ package scoremanager.main;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class SubjectDeleteAction extends Action {
@@ -13,8 +15,9 @@ public class SubjectDeleteAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
     	req.setCharacterEncoding("UTF-8");
         // 仮の学校情報
-        School school = new School();
-        school.setCd("oom");
+    	HttpSession session = req.getSession(); // コメントアウト
+		Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
+		School school = teacher.getSchool();
 
         // JSP から受け取る値
         String cd = req.getParameter("cd");

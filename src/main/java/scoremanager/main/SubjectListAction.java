@@ -4,9 +4,11 @@ import java.util.List;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class SubjectListAction extends Action {
@@ -15,8 +17,9 @@ public class SubjectListAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 
-        School school = new School();
-        school.setCd("oom"); // テスト用学校コード oom
+    	HttpSession session = req.getSession(); // コメントアウト
+		Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
+		School school = teacher.getSchool();
 
 
         List<Subject> subject = null;
