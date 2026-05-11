@@ -16,7 +16,7 @@ public class SubjectListAction extends Action {
 
 
         School school = new School();
-        school.setCd("oom"); // テスト用学校コード
+        school.setCd("oom"); // テスト用学校コード oom
 
 
         List<Subject> subject = null;
