@@ -155,7 +155,7 @@
 					<c:if test="${not empty tests}">
 					    <%-- 余計なformタグを削除して、ボタンだけ置く --%>
 					    <div class="mt-3">
-					        <button type="submit" class="btn btn-primary">登録して保存</button>
+					        <button type="submit" class="btn btn-secondary">登録して終了</button>
 					    </div>
 					</c:if>
 				</form>
