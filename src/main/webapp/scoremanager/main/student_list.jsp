@@ -109,7 +109,7 @@
 				
 				<%-- 検索結果が0件だった場合 --%>
 				<c:otherwise>
-					<div class="alert alert-info">学生情報が存在しませんでした。</div>
+					<div>学生情報が存在しませんでした。</div>
 				</c:otherwise>
 			</c:choose>
 		</section>
