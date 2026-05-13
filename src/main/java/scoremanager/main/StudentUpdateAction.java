@@ -6,10 +6,12 @@ import java.util.Map;
 
 import bean.School;
 import bean.Student;
+import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class StudentUpdateAction extends Action {
@@ -17,8 +19,9 @@ public class StudentUpdateAction extends Action {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-        School school = new School();
-        school.setCd("tes");
+    	HttpSession session = req.getSession(); // コメントアウト
+		Teacher teacher = (Teacher)session.getAttribute("user"); // コメントアウト
+		School school = teacher.getSchool();
 
         StudentDao studentDao = new StudentDao();
         ClassNumDao classNumDao = new ClassNumDao();

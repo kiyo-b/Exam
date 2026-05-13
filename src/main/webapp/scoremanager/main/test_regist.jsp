@@ -82,6 +82,11 @@
 					<div class="col-2 text-center">
 						<button type="submit" class="btn btn-secondary" id="filter-button" >検索</button>
 					</div>
+					<c:if test="${param.f1 == '0' or param.f2 == '0' or param.f3 == '0' or param.f4 == '0'}">
+					    <div class="mt-2 text-warning">
+					        入学年度とクラスと科目と回数を選択してください。
+					    </div>
+					</c:if>
 				 </div>
 
 			</form>
@@ -98,8 +103,9 @@
 
 		<c:choose>
 			<c:when test="${empty tests}">
-			    <div class="text-danger"></div>
+			    <div class="text-dark">学生情報が存在しませんでした。</div>
 			</c:when>
+
 			<c:otherwise>
 				<form method = "post" action="TestRegistExecute.action" novalidate>
 					<input type="hidden" name="f1" value="${f1}">

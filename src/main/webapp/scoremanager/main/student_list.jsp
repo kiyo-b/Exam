@@ -106,11 +106,13 @@
 						</c:forEach>
 					</table>
 				</c:when>
-				
 				 <c:otherwise>
 					<div class="alert" style="background-color: white; color: black;">
             			学生情報が存在しませんでした。
 					</div>
+				<%-- 検索結果が0件だった場合 --%>
+				<c:otherwise>
+					<div>学生情報が存在しませんでした。</div>
 				</c:otherwise>
 			</c:choose>
 		</section>
