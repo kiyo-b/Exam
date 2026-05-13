@@ -51,9 +51,6 @@
                             </option>
                         </c:forEach>
                     </select>
-                    <c:if test="${errors.f4 != null}">
-                    	<div class="text-danger">${errors.f4}</div>
-                    </c:if>
                 </div>
 
                 <div class="col-2 text-center mt-3">
